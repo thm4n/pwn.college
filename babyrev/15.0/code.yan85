@@ -1,0 +1,39 @@
+IMM b = 0x7f
+IMM c = 0x08
+IMM a = 0x00
+SYS 0x10 a
+
+IMM b = 0x9f
+IMM c = 0x01
+
+IMM a = 0x4e
+STM *b = a
+ADD b c
+
+IMM a = 0xe0
+STM *b = a
+ADD b c
+
+IMM a = 0xaf
+STM *b = a
+ADD b c
+
+IMM a = 0x3f
+STM *b = a
+ADD b c
+
+IMM a = 0x94
+STM *b = a
+ADD b c
+
+IMM a = 0xae
+STM *b = a
+ADD b c
+
+IMM a = 0x4d
+STM *b = a
+ADD b c
+
+IMM a = 0x62
+STM *b = a
+ADD b c

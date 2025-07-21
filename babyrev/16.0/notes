@@ -1,0 +1,77 @@
+registers id:
+a 0x04
+b 0x20
+c 0x40
+d 0x10
+s 0x08
+i 0x01
+f 0x02
+
+syscalls:
+sys_exit: ...
+sys_read: read from fd(A) (C) Bytes [into (B)] - A holds num of bytes read
+sys_write: write to fd(A) byte(D) ??????
+
+
+0x1160        entry0
+0x1190        sym.deregister_tm_clones
+0x11c0        sym.register_tm_clones
+0x1200        sym.__do_global_dtors_aux
+0x10c0        sym..plt.got
+0x1240        entry.init0
+0x1000        sym._init
+0x32d0        sym.__libc_csu_fini
+0x1598        sym.read_register
+0x1249        sym.crash
+0x1100        sym.imp.printf
+0x131f        sym.sys_exit
+0x1140        sym.imp.exit
+0x1150        sym.imp.sleep
+0x13e9        sym.describe_instruction
+0x14b6        sym.describe_flags
+0x32d8        sym._fini
+0x1c87        sym.interpret_sys
+0x198b        sym.interpret_stm
+0x135b        sym.describe_register
+0x173c        sym.write_memory
+0x1768        sym.interpret_imm
+0x164a        sym.write_register
+0x185a        sym.interpret_stk
+0x3260        sym.__libc_csu_init
+0x133c        sym.sys_sleep
+0x1289        sym.sys_open
+0x1130        sym.imp.open
+0x1a1a        sym.interpret_ldm
+0x171b        sym.read_memory
+0x30e0        main
+0x10d0        sym.imp.puts
+0x1120        sym.imp.setvbuf
+0x1f2b        sym.execute_program
+0x10f0        sym.imp.__stack_chk_fail
+0x12ed        sym.sys_write
+0x10e0        sym.imp.write
+0x1aa7        sym.interpret_cmp
+0x12bb        sym.sys_read
+0x1110        sym.imp.read
+0x1be3        sym.interpret_jmp
+0x17c8        sym.interpret_add
+0x1030        fcn.00001030
+0x1040        fcn.00001040
+0x1050        fcn.00001050
+0x1060        fcn.00001060
+0x1070        fcn.00001070
+0x1080        fcn.00001080
+0x1090        fcn.00001090
+0x10a0        fcn.000010a0
+0x10b0        fcn.000010b0
+
+
+0x08 - sys_open
+0x10 - sys_read
+0x01 - sys_write
+0x20 - sys_sleep
+0x04 - sys_exit
+
+var_4h - NOT (is the input correct so far)
+
+0x2ddb - skips "mov dword [var_4h], 0" - tested in 0x2668

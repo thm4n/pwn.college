@@ -1,0 +1,1324 @@
+b = 0x3e 
+c = 0x0c      ; c = 12
+a = 0x00
+sys(0x08, a) ; sys_read from stdin 12 bytes into [0x3e] 
+
+b = 0x5e
+c = 0x01
+
+set password in [0x5e] (12 bytes) {
+    a = 0xd8
+    *b = a        ; [0x5e] = 0xd8
+    b += c        ; b++
+
+    a = 0xbf
+    *b = a        ; [0x5f] = 0xbf
+    b += c        ; b++
+
+    a = 0x0d
+    *b = a        ; [0x60] = 0x0d
+    b += c        ; b++
+
+    a = 0x69
+    *b = a        ; [0x61] = 0x69
+    b += c        ; b++
+
+    a = 0x4d
+    *b = a        ; [0x62] = 0x4d
+    b += c        ; b++
+
+    a = 0xd0
+    *b = a        ; [0x63] = 0xd0
+    b += c        ; b++
+
+    a = 0x75
+    *b = a        ; [0x64] = 0x75
+    b += c        ; b++
+
+    a = 0xfa
+    *b = a        ; [0x65] = 0xfa
+    b += c        ; b++
+
+    a = 0xc3
+    *b = a        ; [0x66] = 0xc3
+    b += c        ; b++
+
+    a = 0xd2
+    *b = a        ; [0x67] = 0xd2
+    b += c        ; b++
+
+    a = 0x7f
+    *b = a        ; [0x68] = 0x7f
+    b += c        ; b++
+
+    a = 0x20
+    *b = a        ; [0x69] = 0x20
+    b += c        ; b++
+}
+
+b = 0x5e
+c = 0x01
+
+modify password in 0x5e {
+    a = *b        ; a = [0x5e] = 0xd8
+    d = 0xe7
+    a += d        ; a = 0xd8 + 0xe7 = 0xbf
+    *b = a        ; [0x5e] = 0xbf
+
+    b += c        ; b++ ; b = [0x5f]
+    a = *b        ; a = [0x5f] = 0xbf
+    d = 0x13
+    a += d        ; a = 0xbf + 0x13 = 0xd2
+    *b = a        ; [0x5f] = 0xd2
+
+    b += c        ; b++ ; b = [0x60]
+    a = *b        ; a = [0x60] = 0x0d
+    d = 0x22
+    a += d        ; a = 0x0d + 0x22 = 0x2f
+    *b = a        ; [0x60] = 0x2f
+
+    b += c        ; b++ ; b = [0x61]
+    a = *b        ; a = [0x61] = 0x69
+    d = 0x73
+    a += d        ; a = 0x69 + 0x73 = 0xdc
+    *b = a        ; [0x61] = 0xdc
+
+    b += c        ; b++ ; b = [0x62]
+    a = *b        ; a = [0x62] = 0x4d
+    d = 0x2f
+    a += d        ; a = 0x4d + 0x2f = 0x7c
+    *b = a        ; [0x62] = 0x7c
+
+    b += c        ; b++ ; b = [0x63]
+    a = *b        ; a = [0x63] = 0xd0
+    d = 0xe1
+    a += d        ; a = 0xd0 + 0xe1 = 0xb1
+    *b = a        ; [0x63] = 0xb1
+
+    b += c        ; b++ ; b = [0x64]
+    a = *b        ; a = [0x64] = 0x75
+    d = 0x94
+    a += d        ; a = 0x75 + 0x94 = 0x09
+    *b = a        ; [0x64] = 0x09
+
+    b += c        ; b++ ; b = [0x65]
+    a = *b        ; a = [0x65] = 0xfa
+    d = 0x00
+    a += d        ; a = 0xfa + 0x00 = 0xfa
+    *b = a        ; [0x65] = 0xfa
+
+    b += c        ; b++ ; b = [0x66]
+    a = *b        ; a = [0x66] = 0xc3
+    d = 0x34
+    a += d        ; a = 0xc3 + 0x34 = 0xf7
+    *b = a        ; [0x66] = 0xf7
+
+    b += c        ; b++ ; b = [0x67]
+    a = *b        ; a = [0x67] = 0xd2
+    d = 0x5e
+    a += d        ; a = 0xd2 + 0x5e = 0x30
+    *b = a        ; [0x67] = 0x30
+
+    b += c        ; b++ ; b = [0x68]
+    a = *b        ; a = [0x68] = 0x7f
+    d = 0xee
+    a += d        ; a = 0x7f + 0xee = 0x6d
+    *b = a        ; [0x68] = 0x6d
+
+    b += c        ; b++ ; b = [0x69]
+    a = *b        ; a = [0x69] = 0x20
+    d = 0xfd
+    a += d        ; a = 0x20 + 0xfd = 0x1d
+    *b = a        ; [0x69] = 0x1d
+}
+b += c
+
+b = 0x5e
+b = *b
+
+a = 0x3e
+a = *a
+
+cmp a b       ; if a != b: var_4h = 0
+
+
+0x23da        mov edx, 2                  ; int64_t arg3
+0x23df        mov esi, 0x10               ; int64_t arg2
+0x23e4        mov rdi, rax                ; int64_t arg1
+0x23e7        call int_cmp
+0x23ec        mov rax, qword [var_18h]
+
+0x23f0        movzx eax, byte [rax + 0x106]
+0x23f7        movzx eax, al
+0x23fa        and eax, 4
+0x23fd        test eax, eax
+0x23ff        jne 0x2408
+0x2401        mov dword [var_4h], 0
+;  XREF from230x2408        mov rax, qword [var_18h]
+
+0x240c        mov edx, 0x5f               ; '_' ; int64_t arg3
+0x2411        mov esi, 2                  ; int64_t arg2
+0x2416        mov rdi, rax                ; int64_t arg1
+0x2419        call int_imm
+0x241e        mov rax, qword [var_18h]
+
+0x2422        mov edx, 2                  ; int64_t arg3
+0x2427        mov esi, 2                  ; int64_t arg2
+0x242c        mov rdi, rax                ; int64_t arg1
+0x242f        call int_ldm
+0x2434        mov rax, qword [var_18h]
+
+0x2438        mov edx, 0x3f               ; '?' ; int64_t arg3
+0x243d        mov esi, 0x10               ; int64_t arg2
+0x2442        mov rdi, rax                ; int64_t arg1
+0x2445        call int_imm
+0x244a        mov rax, qword [var_18h]
+
+0x244e        mov edx, 0x10               ; int64_t arg3
+0x2453        mov esi, 0x10               ; int64_t arg2
+0x2458        mov rdi, rax                ; int64_t arg1
+0x245b        call int_ldm
+0x2460        mov rax, qword [var_18h]
+
+0x2464        mov edx, 2                  ; int64_t arg3
+0x2469        mov esi, 0x10               ; int64_t arg2
+0x246e        mov rdi, rax                ; int64_t arg1
+0x2471        call int_cmp
+0x2476        mov rax, qword [var_18h]
+
+0x247a        movzx eax, byte [rax + 0x106]
+0x2481        movzx eax, al
+0x2484        and eax, 4
+0x2487        test eax, eax
+0x2489        jne 0x2492
+0x248b        mov dword [var_4h], 0
+;  XREF from240x2492        mov rax, qword [var_18h]
+
+0x2496        mov edx, 0x60               ; '`' ; int64_t arg3
+0x249b        mov esi, 2                  ; int64_t arg2
+0x24a0        mov rdi, rax                ; int64_t arg1
+0x24a3        call int_imm
+0x24a8        mov rax, qword [var_18h]
+
+0x24ac        mov edx, 2                  ; int64_t arg3
+0x24b1        mov esi, 2                  ; int64_t arg2
+0x24b6        mov rdi, rax                ; int64_t arg1
+0x24b9        call int_ldm
+0x24be        mov rax, qword [var_18h]
+
+0x24c2        mov edx, 0x40               ; elf_phdr ; int64_t arg3
+0x24c7        mov esi, 0x10               ; int64_t arg2
+0x24cc        mov rdi, rax                ; int64_t arg1
+0x24cf        call int_imm
+0x24d4        mov rax, qword [var_18h]
+
+0x24d8        mov edx, 0x10               ; int64_t arg3
+0x24dd        mov esi, 0x10               ; int64_t arg2
+0x24e2        mov rdi, rax                ; int64_t arg1
+0x24e5        call int_ldm
+0x24ea        mov rax, qword [var_18h]
+
+0x24ee        mov edx, 2                  ; int64_t arg3
+0x24f3        mov esi, 0x10               ; int64_t arg2
+0x24f8        mov rdi, rax                ; int64_t arg1
+0x24fb        call int_cmp
+0x2500        mov rax, qword [var_18h]
+
+0x2504        movzx eax, byte [rax + 0x106]
+0x250b        movzx eax, al
+0x250e        and eax, 4
+0x2511        test eax, eax
+0x2513        jne 0x251c
+0x2515        mov dword [var_4h], 0
+;  XREF from250x251c        mov rax, qword [var_18h]
+
+0x2520        mov edx, 0x61               ; 'a' ; int64_t arg3
+0x2525        mov esi, 2                  ; int64_t arg2
+0x252a        mov rdi, rax                ; int64_t arg1
+0x252d        call int_imm
+0x2532        mov rax, qword [var_18h]
+
+0x2536        mov edx, 2                  ; int64_t arg3
+0x253b        mov esi, 2                  ; int64_t arg2
+0x2540        mov rdi, rax                ; int64_t arg1
+0x2543        call int_ldm
+0x2548        mov rax, qword [var_18h]
+
+0x254c        mov edx, 0x41               ; 'A' ; int64_t arg3
+0x2551        mov esi, 0x10               ; int64_t arg2
+0x2556        mov rdi, rax                ; int64_t arg1
+0x2559        call int_imm
+0x255e        mov rax, qword [var_18h]
+
+0x2562        mov edx, 0x10               ; int64_t arg3
+0x2567        mov esi, 0x10               ; int64_t arg2
+0x256c        mov rdi, rax                ; int64_t arg1
+0x256f        call int_ldm
+0x2574        mov rax, qword [var_18h]
+
+0x2578        mov edx, 2                  ; int64_t arg3
+0x257d        mov esi, 0x10               ; int64_t arg2
+0x2582        mov rdi, rax                ; int64_t arg1
+0x2585        call int_cmp
+0x258a        mov rax, qword [var_18h]
+
+0x258e        movzx eax, byte [rax + 0x106]
+0x2595        movzx eax, al
+0x2598        and eax, 4
+0x259b        test eax, eax
+0x259d        jne 0x25a6
+0x259f        mov dword [var_4h], 0
+;  XREF from250x25a6        mov rax, qword [var_18h]
+
+0x25aa        mov edx, 0x62               ; 'b' ; int64_t arg3
+0x25af        mov esi, 2                  ; int64_t arg2
+0x25b4        mov rdi, rax                ; int64_t arg1
+0x25b7        call int_imm
+0x25bc        mov rax, qword [var_18h]
+
+0x25c0        mov edx, 2                  ; int64_t arg3
+0x25c5        mov esi, 2                  ; int64_t arg2
+0x25ca        mov rdi, rax                ; int64_t arg1
+0x25cd        call int_ldm
+0x25d2        mov rax, qword [var_18h]
+
+0x25d6        mov edx, 0x42               ; 'B' ; int64_t arg3
+0x25db        mov esi, 0x10               ; int64_t arg2
+0x25e0        mov rdi, rax                ; int64_t arg1
+0x25e3        call int_imm
+0x25e8        mov rax, qword [var_18h]
+
+0x25ec        mov edx, 0x10               ; int64_t arg3
+0x25f1        mov esi, 0x10               ; int64_t arg2
+0x25f6        mov rdi, rax                ; int64_t arg1
+0x25f9        call int_ldm
+0x25fe        mov rax, qword [var_18h]
+
+0x2602        mov edx, 2                  ; int64_t arg3
+0x2607        mov esi, 0x10               ; int64_t arg2
+0x260c        mov rdi, rax                ; int64_t arg1
+0x260f        call int_cmp
+0x2614        mov rax, qword [var_18h]
+
+0x2618        movzx eax, byte [rax + 0x106]
+0x261f        movzx eax, al
+0x2622        and eax, 4
+0x2625        test eax, eax
+0x2627        jne 0x2630
+0x2629        mov dword [var_4h], 0
+;  XREF from260x2630        mov rax, qword [var_18h]
+
+0x2634        mov edx, 0x63               ; 'c' ; int64_t arg3
+0x2639        mov esi, 2                  ; int64_t arg2
+0x263e        mov rdi, rax                ; int64_t arg1
+0x2641        call int_imm
+0x2646        mov rax, qword [var_18h]
+
+0x264a        mov edx, 2                  ; int64_t arg3
+0x264f        mov esi, 2                  ; int64_t arg2
+0x2654        mov rdi, rax                ; int64_t arg1
+0x2657        call int_ldm
+0x265c        mov rax, qword [var_18h]
+
+0x2660        mov edx, 0x43               ; 'C' ; int64_t arg3
+0x2665        mov esi, 0x10               ; int64_t arg2
+0x266a        mov rdi, rax                ; int64_t arg1
+0x266d        call int_imm
+0x2672        mov rax, qword [var_18h]
+
+0x2676        mov edx, 0x10               ; int64_t arg3
+0x267b        mov esi, 0x10               ; int64_t arg2
+0x2680        mov rdi, rax                ; int64_t arg1
+0x2683        call int_ldm
+0x2688        mov rax, qword [var_18h]
+
+0x268c        mov edx, 2                  ; int64_t arg3
+0x2691        mov esi, 0x10               ; int64_t arg2
+0x2696        mov rdi, rax                ; int64_t arg1
+0x2699        call int_cmp
+0x269e        mov rax, qword [var_18h]
+
+0x26a2        movzx eax, byte [rax + 0x106]
+0x26a9        movzx eax, al
+0x26ac        and eax, 4
+0x26af        test eax, eax
+0x26b1        jne 0x26ba
+0x26b3        mov dword [var_4h], 0
+;  XREF from260x26ba        mov rax, qword [var_18h]
+
+0x26be        mov edx, 0x64               ; 'd' ; int64_t arg3
+0x26c3        mov esi, 2                  ; int64_t arg2
+0x26c8        mov rdi, rax                ; int64_t arg1
+0x26cb        call int_imm
+0x26d0        mov rax, qword [var_18h]
+
+0x26d4        mov edx, 2                  ; int64_t arg3
+0x26d9        mov esi, 2                  ; int64_t arg2
+0x26de        mov rdi, rax                ; int64_t arg1
+0x26e1        call int_ldm
+0x26e6        mov rax, qword [var_18h]
+
+0x26ea        mov edx, 0x44               ; 'D' ; int64_t arg3
+0x26ef        mov esi, 0x10               ; int64_t arg2
+0x26f4        mov rdi, rax                ; int64_t arg1
+0x26f7        call int_imm
+0x26fc        mov rax, qword [var_18h]
+
+0x2700        mov edx, 0x10               ; int64_t arg3
+0x2705        mov esi, 0x10               ; int64_t arg2
+0x270a        mov rdi, rax                ; int64_t arg1
+0x270d        call int_ldm
+0x2712        mov rax, qword [var_18h]
+
+0x2716        mov edx, 2                  ; int64_t arg3
+0x271b        mov esi, 0x10               ; int64_t arg2
+0x2720        mov rdi, rax                ; int64_t arg1
+0x2723        call int_cmp
+0x2728        mov rax, qword [var_18h]
+
+0x272c        movzx eax, byte [rax + 0x106]
+0x2733        movzx eax, al
+0x2736        and eax, 4
+0x2739        test eax, eax
+0x273b        jne 0x2744
+0x273d        mov dword [var_4h], 0
+;  XREF from270x2744        mov rax, qword [var_18h]
+
+0x2748        mov edx, 0x65               ; 'e' ; int64_t arg3
+0x274d        mov esi, 2                  ; int64_t arg2
+0x2752        mov rdi, rax                ; int64_t arg1
+0x2755        call int_imm
+0x275a        mov rax, qword [var_18h]
+
+0x275e        mov edx, 2                  ; int64_t arg3
+0x2763        mov esi, 2                  ; int64_t arg2
+0x2768        mov rdi, rax                ; int64_t arg1
+0x276b        call int_ldm
+0x2770        mov rax, qword [var_18h]
+
+0x2774        mov edx, 0x45               ; 'E' ; int64_t arg3
+0x2779        mov esi, 0x10               ; int64_t arg2
+0x277e        mov rdi, rax                ; int64_t arg1
+0x2781        call int_imm
+0x2786        mov rax, qword [var_18h]
+
+0x278a        mov edx, 0x10               ; int64_t arg3
+0x278f        mov esi, 0x10               ; int64_t arg2
+0x2794        mov rdi, rax                ; int64_t arg1
+0x2797        call int_ldm
+0x279c        mov rax, qword [var_18h]
+
+0x27a0        mov edx, 2                  ; int64_t arg3
+0x27a5        mov esi, 0x10               ; int64_t arg2
+0x27aa        mov rdi, rax                ; int64_t arg1
+0x27ad        call int_cmp
+0x27b2        mov rax, qword [var_18h]
+
+0x27b6        movzx eax, byte [rax + 0x106]
+0x27bd        movzx eax, al
+0x27c0        and eax, 4
+0x27c3        test eax, eax
+0x27c5        jne 0x27ce
+0x27c7        mov dword [var_4h], 0
+;  XREF from270x27ce        mov rax, qword [var_18h]
+
+0x27d2        mov edx, 0x66               ; 'f' ; int64_t arg3
+0x27d7        mov esi, 2                  ; int64_t arg2
+0x27dc        mov rdi, rax                ; int64_t arg1
+0x27df        call int_imm
+0x27e4        mov rax, qword [var_18h]
+
+0x27e8        mov edx, 2                  ; int64_t arg3
+0x27ed        mov esi, 2                  ; int64_t arg2
+0x27f2        mov rdi, rax                ; int64_t arg1
+0x27f5        call int_ldm
+0x27fa        mov rax, qword [var_18h]
+
+0x27fe        mov edx, 0x46               ; 'F' ; int64_t arg3
+0x2803        mov esi, 0x10               ; int64_t arg2
+0x2808        mov rdi, rax                ; int64_t arg1
+0x280b        call int_imm
+0x2810        mov rax, qword [var_18h]
+
+0x2814        mov edx, 0x10               ; int64_t arg3
+0x2819        mov esi, 0x10               ; int64_t arg2
+0x281e        mov rdi, rax                ; int64_t arg1
+0x2821        call int_ldm
+0x2826        mov rax, qword [var_18h]
+
+0x282a        mov edx, 2                  ; int64_t arg3
+0x282f        mov esi, 0x10               ; int64_t arg2
+0x2834        mov rdi, rax                ; int64_t arg1
+0x2837        call int_cmp
+0x283c        mov rax, qword [var_18h]
+
+0x2840        movzx eax, byte [rax + 0x106]
+0x2847        movzx eax, al
+0x284a        and eax, 4
+0x284d        test eax, eax
+0x284f        jne 0x2858
+0x2851        mov dword [var_4h], 0
+;  XREF from280x2858        mov rax, qword [var_18h]
+
+0x285c        mov edx, 0x67               ; 'g' ; int64_t arg3
+0x2861        mov esi, 2                  ; int64_t arg2
+0x2866        mov rdi, rax                ; int64_t arg1
+0x2869        call int_imm
+0x286e        mov rax, qword [var_18h]
+
+0x2872        mov edx, 2                  ; int64_t arg3
+0x2877        mov esi, 2                  ; int64_t arg2
+0x287c        mov rdi, rax                ; int64_t arg1
+0x287f        call int_ldm
+0x2884        mov rax, qword [var_18h]
+
+0x2888        mov edx, 0x47               ; 'G' ; int64_t arg3
+0x288d        mov esi, 0x10               ; int64_t arg2
+0x2892        mov rdi, rax                ; int64_t arg1
+0x2895        call int_imm
+0x289a        mov rax, qword [var_18h]
+
+0x289e        mov edx, 0x10               ; int64_t arg3
+0x28a3        mov esi, 0x10               ; int64_t arg2
+0x28a8        mov rdi, rax                ; int64_t arg1
+0x28ab        call int_ldm
+0x28b0        mov rax, qword [var_18h]
+
+0x28b4        mov edx, 2                  ; int64_t arg3
+0x28b9        mov esi, 0x10               ; int64_t arg2
+0x28be        mov rdi, rax                ; int64_t arg1
+0x28c1        call int_cmp
+0x28c6        mov rax, qword [var_18h]
+
+0x28ca        movzx eax, byte [rax + 0x106]
+0x28d1        movzx eax, al
+0x28d4        and eax, 4
+0x28d7        test eax, eax
+0x28d9        jne 0x28e2
+0x28db        mov dword [var_4h], 0
+;  XREF from280x28e2        mov rax, qword [var_18h]
+
+0x28e6        mov edx, 0x68               ; 'h' ; int64_t arg3
+0x28eb        mov esi, 2                  ; int64_t arg2
+0x28f0        mov rdi, rax                ; int64_t arg1
+0x28f3        call int_imm
+0x28f8        mov rax, qword [var_18h]
+
+0x28fc        mov edx, 2                  ; int64_t arg3
+0x2901        mov esi, 2                  ; int64_t arg2
+0x2906        mov rdi, rax                ; int64_t arg1
+0x2909        call int_ldm
+0x290e        mov rax, qword [var_18h]
+
+0x2912        mov edx, 0x48               ; 'H' ; int64_t arg3
+0x2917        mov esi, 0x10               ; int64_t arg2
+0x291c        mov rdi, rax                ; int64_t arg1
+0x291f        call int_imm
+0x2924        mov rax, qword [var_18h]
+
+0x2928        mov edx, 0x10               ; int64_t arg3
+0x292d        mov esi, 0x10               ; int64_t arg2
+0x2932        mov rdi, rax                ; int64_t arg1
+0x2935        call int_ldm
+0x293a        mov rax, qword [var_18h]
+
+0x293e        mov edx, 2                  ; int64_t arg3
+0x2943        mov esi, 0x10               ; int64_t arg2
+0x2948        mov rdi, rax                ; int64_t arg1
+0x294b        call int_cmp
+0x2950        mov rax, qword [var_18h]
+
+0x2954        movzx eax, byte [rax + 0x106]
+0x295b        movzx eax, al
+0x295e        and eax, 4
+0x2961        test eax, eax
+0x2963        jne 0x296c
+0x2965        mov dword [var_4h], 0
+;  XREF from290x296c        mov rax, qword [var_18h]
+
+0x2970        mov edx, 0x69               ; 'i' ; int64_t arg3
+0x2975        mov esi, 2                  ; int64_t arg2
+0x297a        mov rdi, rax                ; int64_t arg1
+0x297d        call int_imm
+0x2982        mov rax, qword [var_18h]
+
+0x2986        mov edx, 2                  ; int64_t arg3
+0x298b        mov esi, 2                  ; int64_t arg2
+0x2990        mov rdi, rax                ; int64_t arg1
+0x2993        call int_ldm
+0x2998        mov rax, qword [var_18h]
+
+0x299c        mov edx, 0x49               ; 'I' ; int64_t arg3
+0x29a1        mov esi, 0x10               ; int64_t arg2
+0x29a6        mov rdi, rax                ; int64_t arg1
+0x29a9        call int_imm
+0x29ae        mov rax, qword [var_18h]
+
+0x29b2        mov edx, 0x10               ; int64_t arg3
+0x29b7        mov esi, 0x10               ; int64_t arg2
+0x29bc        mov rdi, rax                ; int64_t arg1
+0x29bf        call int_ldm
+0x29c4        mov rax, qword [var_18h]
+
+0x29c8        mov edx, 2                  ; int64_t arg3
+0x29cd        mov esi, 0x10               ; int64_t arg2
+0x29d2        mov rdi, rax                ; int64_t arg1
+0x29d5        call int_cmp
+0x29da        mov rax, qword [var_18h]
+
+0x29de        movzx eax, byte [rax + 0x106]
+0x29e5        movzx eax, al
+0x29e8        and eax, 4
+0x29eb        test eax, eax
+0x29ed        jne 0x29f6
+0x29ef        mov dword [var_4h], 0
+;  XREF from290x29f6        mov rax, qword [var_18h]
+
+0x29fa        mov edx, 1                  ; int64_t arg3
+0x29ff        mov esi, 0x10               ; int64_t arg2
+0x2a04        mov rdi, rax                ; int64_t arg1
+0x2a07        call int_imm
+0x2a0c        mov rax, qword [var_18h]
+
+0x2a10        mov edx, 0                  ; int64_t arg3
+0x2a15        mov esi, 2                  ; int64_t arg2
+0x2a1a        mov rdi, rax                ; int64_t arg1
+0x2a1d        call int_imm
+0x2a22        mov rax, qword [var_18h]
+
+0x2a26        mov edx, 1                  ; int64_t arg3
+0x2a2b        mov esi, 0x20               ; "@" ; int64_t arg2
+0x2a30        mov rdi, rax                ; int64_t arg1
+0x2a33        call int_imm
+0x2a38        cmp dword [var_4h], 0
+0x2a3c      00je 0x31ab
+0x2a42        mov rax, qword [var_18h]
+
+0x2a46        mov edx, 0x43               ; 'C' ; int64_t arg3
+0x2a4b        mov esi, 4                  ; int64_t arg2
+0x2a50        mov rdi, rax                ; int64_t arg1
+0x2a53        call int_imm
+0x2a58        mov rax, qword [var_18h]
+
+0x2a5c        mov edx, 4                  ; int64_t arg3
+0x2a61        mov esi, 2                  ; int64_t arg2
+0x2a66        mov rdi, rax                ; int64_t arg1
+0x2a69        call int_stm
+0x2a6e        mov rax, qword [var_18h]
+
+0x2a72        mov edx, 0x10               ; int64_t arg3
+0x2a77        mov esi, 0x10               ; int64_t arg2
+0x2a7c        mov rdi, rax                ; int64_t arg1
+0x2a7f        call int_sys
+0x2a84        mov rax, qword [var_18h]
+
+0x2a88        mov edx, 0x4f               ; 'O' ; int64_t arg3
+0x2a8d        mov esi, 4                  ; int64_t arg2
+0x2a92        mov rdi, rax                ; int64_t arg1
+0x2a95        call int_imm
+0x2a9a        mov rax, qword [var_18h]
+
+0x2a9e        mov edx, 4                  ; int64_t arg3
+0x2aa3        mov esi, 2                  ; int64_t arg2
+0x2aa8        mov rdi, rax                ; int64_t arg1
+0x2aab        call int_stm
+0x2ab0        mov rax, qword [var_18h]
+
+0x2ab4        mov edx, 0x10               ; int64_t arg3
+0x2ab9        mov esi, 0x10               ; int64_t arg2
+0x2abe        mov rdi, rax                ; int64_t arg1
+0x2ac1        call int_sys
+0x2ac6        mov rax, qword [var_18h]
+
+0x2aca        mov edx, 0x52               ; 'R' ; int64_t arg3
+0x2acf        mov esi, 4                  ; int64_t arg2
+0x2ad4        mov rdi, rax                ; int64_t arg1
+0x2ad7        call int_imm
+0x2adc        mov rax, qword [var_18h]
+
+0x2ae0        mov edx, 4                  ; int64_t arg3
+0x2ae5        mov esi, 2                  ; int64_t arg2
+0x2aea        mov rdi, rax                ; int64_t arg1
+0x2aed        call int_stm
+0x2af2        mov rax, qword [var_18h]
+
+0x2af6        mov edx, 0x10               ; int64_t arg3
+0x2afb        mov esi, 0x10               ; int64_t arg2
+0x2b00        mov rdi, rax                ; int64_t arg1
+0x2b03        call int_sys
+0x2b08        mov rax, qword [var_18h]
+
+0x2b0c        mov edx, 0x52               ; 'R' ; int64_t arg3
+0x2b11        mov esi, 4                  ; int64_t arg2
+0x2b16        mov rdi, rax                ; int64_t arg1
+0x2b19        call int_imm
+0x2b1e        mov rax, qword [var_18h]
+
+0x2b22        mov edx, 4                  ; int64_t arg3
+0x2b27        mov esi, 2                  ; int64_t arg2
+0x2b2c        mov rdi, rax                ; int64_t arg1
+0x2b2f        call int_stm
+0x2b34        mov rax, qword [var_18h]
+
+0x2b38        mov edx, 0x10               ; int64_t arg3
+0x2b3d        mov esi, 0x10               ; int64_t arg2
+0x2b42        mov rdi, rax                ; int64_t arg1
+0x2b45        call int_sys
+0x2b4a        mov rax, qword [var_18h]
+
+0x2b4e        mov edx, 0x45               ; 'E' ; int64_t arg3
+0x2b53        mov esi, 4                  ; int64_t arg2
+0x2b58        mov rdi, rax                ; int64_t arg1
+0x2b5b        call int_imm
+0x2b60        mov rax, qword [var_18h]
+
+0x2b64        mov edx, 4                  ; int64_t arg3
+0x2b69        mov esi, 2                  ; int64_t arg2
+0x2b6e        mov rdi, rax                ; int64_t arg1
+0x2b71        call int_stm
+0x2b76        mov rax, qword [var_18h]
+
+0x2b7a        mov edx, 0x10               ; int64_t arg3
+0x2b7f        mov esi, 0x10               ; int64_t arg2
+0x2b84        mov rdi, rax                ; int64_t arg1
+0x2b87        call int_sys
+0x2b8c        mov rax, qword [var_18h]
+
+0x2b90        mov edx, 0x43               ; 'C' ; int64_t arg3
+0x2b95        mov esi, 4                  ; int64_t arg2
+0x2b9a        mov rdi, rax                ; int64_t arg1
+0x2b9d        call int_imm
+0x2ba2        mov rax, qword [var_18h]
+
+0x2ba6        mov edx, 4                  ; int64_t arg3
+0x2bab        mov esi, 2                  ; int64_t arg2
+0x2bb0        mov rdi, rax                ; int64_t arg1
+0x2bb3        call int_stm
+0x2bb8        mov rax, qword [var_18h]
+
+0x2bbc        mov edx, 0x10               ; int64_t arg3
+0x2bc1        mov esi, 0x10               ; int64_t arg2
+0x2bc6        mov rdi, rax                ; int64_t arg1
+0x2bc9        call int_sys
+0x2bce        mov rax, qword [var_18h]
+
+0x2bd2        mov edx, 0x54               ; 'T' ; int64_t arg3
+0x2bd7        mov esi, 4                  ; int64_t arg2
+0x2bdc        mov rdi, rax                ; int64_t arg1
+0x2bdf        call int_imm
+0x2be4        mov rax, qword [var_18h]
+
+0x2be8        mov edx, 4                  ; int64_t arg3
+0x2bed        mov esi, 2                  ; int64_t arg2
+0x2bf2        mov rdi, rax                ; int64_t arg1
+0x2bf5        call int_stm
+0x2bfa        mov rax, qword [var_18h]
+
+0x2bfe        mov edx, 0x10               ; int64_t arg3
+0x2c03        mov esi, 0x10               ; int64_t arg2
+0x2c08        mov rdi, rax                ; int64_t arg1
+0x2c0b        call int_sys
+0x2c10        mov rax, qword [var_18h]
+
+0x2c14        mov edx, 0x21               ; '!' ; int64_t arg3
+0x2c19        mov esi, 4                  ; int64_t arg2
+0x2c1e        mov rdi, rax                ; int64_t arg1
+0x2c21        call int_imm
+0x2c26        mov rax, qword [var_18h]
+
+0x2c2a        mov edx, 4                  ; int64_t arg3
+0x2c2f        mov esi, 2                  ; int64_t arg2
+0x2c34        mov rdi, rax                ; int64_t arg1
+0x2c37        call int_stm
+0x2c3c        mov rax, qword [var_18h]
+
+0x2c40        mov edx, 0x10               ; int64_t arg3
+0x2c45        mov esi, 0x10               ; int64_t arg2
+0x2c4a        mov rdi, rax                ; int64_t arg1
+0x2c4d        call int_sys
+0x2c52        mov rax, qword [var_18h]
+
+0x2c56        mov edx, 0x20               ; "@" ; int64_t arg3
+0x2c5b        mov esi, 4                  ; int64_t arg2
+0x2c60        mov rdi, rax                ; int64_t arg1
+0x2c63        call int_imm
+0x2c68        mov rax, qword [var_18h]
+
+0x2c6c        mov edx, 4                  ; int64_t arg3
+0x2c71        mov esi, 2                  ; int64_t arg2
+0x2c76        mov rdi, rax                ; int64_t arg1
+0x2c79        call int_stm
+0x2c7e        mov rax, qword [var_18h]
+
+0x2c82        mov edx, 0x10               ; int64_t arg3
+0x2c87        mov esi, 0x10               ; int64_t arg2
+0x2c8c        mov rdi, rax                ; int64_t arg1
+0x2c8f        call int_sys
+0x2c94        mov rax, qword [var_18h]
+
+0x2c98        mov edx, 0x59               ; 'Y' ; int64_t arg3
+0x2c9d        mov esi, 4                  ; int64_t arg2
+0x2ca2        mov rdi, rax                ; int64_t arg1
+0x2ca5        call int_imm
+0x2caa        mov rax, qword [var_18h]
+
+0x2cae        mov edx, 4                  ; int64_t arg3
+0x2cb3        mov esi, 2                  ; int64_t arg2
+0x2cb8        mov rdi, rax                ; int64_t arg1
+0x2cbb        call int_stm
+0x2cc0        mov rax, qword [var_18h]
+
+0x2cc4        mov edx, 0x10               ; int64_t arg3
+0x2cc9        mov esi, 0x10               ; int64_t arg2
+0x2cce        mov rdi, rax                ; int64_t arg1
+0x2cd1        call int_sys
+0x2cd6        mov rax, qword [var_18h]
+
+0x2cda        mov edx, 0x6f               ; 'o' ; int64_t arg3
+0x2cdf        mov esi, 4                  ; int64_t arg2
+0x2ce4        mov rdi, rax                ; int64_t arg1
+0x2ce7        call int_imm
+0x2cec        mov rax, qword [var_18h]
+
+0x2cf0        mov edx, 4                  ; int64_t arg3
+0x2cf5        mov esi, 2                  ; int64_t arg2
+0x2cfa        mov rdi, rax                ; int64_t arg1
+0x2cfd        call int_stm
+0x2d02        mov rax, qword [var_18h]
+
+0x2d06        mov edx, 0x10               ; int64_t arg3
+0x2d0b        mov esi, 0x10               ; int64_t arg2
+0x2d10        mov rdi, rax                ; int64_t arg1
+0x2d13        call int_sys
+0x2d18        mov rax, qword [var_18h]
+
+0x2d1c        mov edx, 0x75               ; 'u' ; int64_t arg3
+0x2d21        mov esi, 4                  ; int64_t arg2
+0x2d26        mov rdi, rax                ; int64_t arg1
+0x2d29        call int_imm
+0x2d2e        mov rax, qword [var_18h]
+
+0x2d32        mov edx, 4                  ; int64_t arg3
+0x2d37        mov esi, 2                  ; int64_t arg2
+0x2d3c        mov rdi, rax                ; int64_t arg1
+0x2d3f        call int_stm
+0x2d44        mov rax, qword [var_18h]
+
+0x2d48        mov edx, 0x10               ; int64_t arg3
+0x2d4d        mov esi, 0x10               ; int64_t arg2
+0x2d52        mov rdi, rax                ; int64_t arg1
+0x2d55        call int_sys
+0x2d5a        mov rax, qword [var_18h]
+
+0x2d5e        mov edx, 0x72               ; 'r' ; int64_t arg3
+0x2d63        mov esi, 4                  ; int64_t arg2
+0x2d68        mov rdi, rax                ; int64_t arg1
+0x2d6b        call int_imm
+0x2d70        mov rax, qword [var_18h]
+
+0x2d74        mov edx, 4                  ; int64_t arg3
+0x2d79        mov esi, 2                  ; int64_t arg2
+0x2d7e        mov rdi, rax                ; int64_t arg1
+0x2d81        call int_stm
+0x2d86        mov rax, qword [var_18h]
+
+0x2d8a        mov edx, 0x10               ; int64_t arg3
+0x2d8f        mov esi, 0x10               ; int64_t arg2
+0x2d94        mov rdi, rax                ; int64_t arg1
+0x2d97        call int_sys
+0x2d9c        mov rax, qword [var_18h]
+
+0x2da0        mov edx, 0x20               ; "@" ; int64_t arg3
+0x2da5        mov esi, 4                  ; int64_t arg2
+0x2daa        mov rdi, rax                ; int64_t arg1
+0x2dad        call int_imm
+0x2db2        mov rax, qword [var_18h]
+
+0x2db6        mov edx, 4                  ; int64_t arg3
+0x2dbb        mov esi, 2                  ; int64_t arg2
+0x2dc0        mov rdi, rax                ; int64_t arg1
+0x2dc3        call int_stm
+0x2dc8        mov rax, qword [var_18h]
+
+0x2dcc        mov edx, 0x10               ; int64_t arg3
+0x2dd1        mov esi, 0x10               ; int64_t arg2
+0x2dd6        mov rdi, rax                ; int64_t arg1
+0x2dd9        call int_sys
+0x2dde        mov rax, qword [var_18h]
+
+0x2de2        mov edx, 0x66               ; 'f' ; int64_t arg3
+0x2de7        mov esi, 4                  ; int64_t arg2
+0x2dec        mov rdi, rax                ; int64_t arg1
+0x2def        call int_imm
+0x2df4        mov rax, qword [var_18h]
+
+0x2df8        mov edx, 4                  ; int64_t arg3
+0x2dfd        mov esi, 2                  ; int64_t arg2
+0x2e02        mov rdi, rax                ; int64_t arg1
+0x2e05        call int_stm
+0x2e0a        mov rax, qword [var_18h]
+
+0x2e0e        mov edx, 0x10               ; int64_t arg3
+0x2e13        mov esi, 0x10               ; int64_t arg2
+0x2e18        mov rdi, rax                ; int64_t arg1
+0x2e1b        call int_sys
+0x2e20        mov rax, qword [var_18h]
+
+0x2e24        mov edx, 0x6c               ; 'l' ; int64_t arg3
+0x2e29        mov esi, 4                  ; int64_t arg2
+0x2e2e        mov rdi, rax                ; int64_t arg1
+0x2e31        call int_imm
+0x2e36        mov rax, qword [var_18h]
+
+0x2e3a        mov edx, 4                  ; int64_t arg3
+0x2e3f        mov esi, 2                  ; int64_t arg2
+0x2e44        mov rdi, rax                ; int64_t arg1
+0x2e47        call int_stm
+0x2e4c        mov rax, qword [var_18h]
+
+0x2e50        mov edx, 0x10               ; int64_t arg3
+0x2e55        mov esi, 0x10               ; int64_t arg2
+0x2e5a        mov rdi, rax                ; int64_t arg1
+0x2e5d        call int_sys
+0x2e62        mov rax, qword [var_18h]
+
+0x2e66        mov edx, 0x61               ; 'a' ; int64_t arg3
+0x2e6b        mov esi, 4                  ; int64_t arg2
+0x2e70        mov rdi, rax                ; int64_t arg1
+0x2e73        call int_imm
+0x2e78        mov rax, qword [var_18h]
+
+0x2e7c        mov edx, 4                  ; int64_t arg3
+0x2e81        mov esi, 2                  ; int64_t arg2
+0x2e86        mov rdi, rax                ; int64_t arg1
+0x2e89        call int_stm
+0x2e8e        mov rax, qword [var_18h]
+
+0x2e92        mov edx, 0x10               ; int64_t arg3
+0x2e97        mov esi, 0x10               ; int64_t arg2
+0x2e9c        mov rdi, rax                ; int64_t arg1
+0x2e9f        call int_sys
+0x2ea4        mov rax, qword [var_18h]
+
+0x2ea8        mov edx, 0x67               ; 'g' ; int64_t arg3
+0x2ead        mov esi, 4                  ; int64_t arg2
+0x2eb2        mov rdi, rax                ; int64_t arg1
+0x2eb5        call int_imm
+0x2eba        mov rax, qword [var_18h]
+
+0x2ebe        mov edx, 4                  ; int64_t arg3
+0x2ec3        mov esi, 2                  ; int64_t arg2
+0x2ec8        mov rdi, rax                ; int64_t arg1
+0x2ecb        call int_stm
+0x2ed0        mov rax, qword [var_18h]
+
+0x2ed4        mov edx, 0x10               ; int64_t arg3
+0x2ed9        mov esi, 0x10               ; int64_t arg2
+0x2ede        mov rdi, rax                ; int64_t arg1
+0x2ee1        call int_sys
+0x2ee6        mov rax, qword [var_18h]
+
+0x2eea        mov edx, 0x3a               ; ':' ; int64_t arg3
+0x2eef        mov esi, 4                  ; int64_t arg2
+0x2ef4        mov rdi, rax                ; int64_t arg1
+0x2ef7        call int_imm
+0x2efc        mov rax, qword [var_18h]
+
+0x2f00        mov edx, 4                  ; int64_t arg3
+0x2f05        mov esi, 2                  ; int64_t arg2
+0x2f0a        mov rdi, rax                ; int64_t arg1
+0x2f0d        call int_stm
+0x2f12        mov rax, qword [var_18h]
+
+0x2f16        mov edx, 0x10               ; int64_t arg3
+0x2f1b        mov esi, 0x10               ; int64_t arg2
+0x2f20        mov rdi, rax                ; int64_t arg1
+0x2f23        call int_sys
+0x2f28        mov rax, qword [var_18h]
+
+0x2f2c        mov edx, 0xa                ; int64_t arg3
+0x2f31        mov esi, 4                  ; int64_t arg2
+0x2f36        mov rdi, rax                ; int64_t arg1
+0x2f39        call int_imm
+0x2f3e        mov rax, qword [var_18h]
+
+0x2f42        mov edx, 4                  ; int64_t arg3
+0x2f47        mov esi, 2                  ; int64_t arg2
+0x2f4c        mov rdi, rax                ; int64_t arg1
+0x2f4f        call int_stm
+0x2f54        mov rax, qword [var_18h]
+
+0x2f58        mov edx, 0x10               ; int64_t arg3
+0x2f5d        mov esi, 0x10               ; int64_t arg2
+0x2f62        mov rdi, rax                ; int64_t arg1
+0x2f65        call int_sys
+0x2f6a        mov rax, qword [var_18h]
+
+0x2f6e        mov edx, 0x2f               ; '/' ; int64_t arg3
+0x2f73        mov esi, 4                  ; int64_t arg2
+0x2f78        mov rdi, rax                ; int64_t arg1
+0x2f7b        call int_imm
+0x2f80        mov rax, qword [var_18h]
+
+0x2f84        mov edx, 0                  ; int64_t arg3
+0x2f89        mov esi, 2                  ; int64_t arg2
+0x2f8e        mov rdi, rax                ; int64_t arg1
+0x2f91        call int_imm
+0x2f96        mov rax, qword [var_18h]
+
+0x2f9a        mov edx, 4                  ; int64_t arg3
+0x2f9f        mov esi, 2                  ; int64_t arg2
+0x2fa4        mov rdi, rax                ; int64_t arg1
+0x2fa7        call int_stm
+0x2fac        mov rax, qword [var_18h]
+
+0x2fb0        mov edx, 0x66               ; 'f' ; int64_t arg3
+0x2fb5        mov esi, 4                  ; int64_t arg2
+0x2fba        mov rdi, rax                ; int64_t arg1
+0x2fbd        call int_imm
+0x2fc2        mov rax, qword [var_18h]
+
+0x2fc6        mov edx, 1                  ; int64_t arg3
+0x2fcb        mov esi, 2                  ; int64_t arg2
+0x2fd0        mov rdi, rax                ; int64_t arg1
+0x2fd3        call int_imm
+0x2fd8        mov rax, qword [var_18h]
+
+0x2fdc        mov edx, 4                  ; int64_t arg3
+0x2fe1        mov esi, 2                  ; int64_t arg2
+0x2fe6        mov rdi, rax                ; int64_t arg1
+0x2fe9        call int_stm
+0x2fee        mov rax, qword [var_18h]
+
+0x2ff2        mov edx, 0x6c               ; 'l' ; int64_t arg3
+0x2ff7        mov esi, 4                  ; int64_t arg2
+0x2ffc        mov rdi, rax                ; int64_t arg1
+0x2fff        call int_imm
+0x3004        mov rax, qword [var_18h]
+
+0x3008        mov edx, 2                  ; int64_t arg3
+0x300d        mov esi, 2                  ; int64_t arg2
+0x3012        mov rdi, rax                ; int64_t arg1
+0x3015        call int_imm
+0x301a        mov rax, qword [var_18h]
+
+0x301e        mov edx, 4                  ; int64_t arg3
+0x3023        mov esi, 2                  ; int64_t arg2
+0x3028        mov rdi, rax                ; int64_t arg1
+0x302b        call int_stm
+0x3030        mov rax, qword [var_18h]
+
+0x3034        mov edx, 0x61               ; 'a' ; int64_t arg3
+0x3039        mov esi, 4                  ; int64_t arg2
+0x303e        mov rdi, rax                ; int64_t arg1
+0x3041        call int_imm
+0x3046        mov rax, qword [var_18h]
+
+0x304a        mov edx, 3                  ; int64_t arg3
+0x304f        mov esi, 2                  ; int64_t arg2
+0x3054        mov rdi, rax                ; int64_t arg1
+0x3057        call int_imm
+0x305c        mov rax, qword [var_18h]
+
+0x3060        mov edx, 4                  ; int64_t arg3
+0x3065        mov esi, 2                  ; int64_t arg2
+0x306a        mov rdi, rax                ; int64_t arg1
+0x306d        call int_stm
+0x3072        mov rax, qword [var_18h]
+
+0x3076        mov edx, 0x67               ; 'g' ; int64_t arg3
+0x307b        mov esi, 4                  ; int64_t arg2
+0x3080        mov rdi, rax                ; int64_t arg1
+0x3083        call int_imm
+0x3088        mov rax, qword [var_18h]
+
+0x308c        mov edx, 4                  ; int64_t arg3
+0x3091        mov esi, 2                  ; int64_t arg2
+0x3096        mov rdi, rax                ; int64_t arg1
+0x3099        call int_imm
+0x309e        mov rax, qword [var_18h]
+
+0x30a2        mov edx, 4                  ; int64_t arg3
+0x30a7        mov esi, 2                  ; int64_t arg2
+0x30ac        mov rdi, rax                ; int64_t arg1
+0x30af        call int_stm
+0x30b4        mov rax, qword [var_18h]
+
+0x30b8        mov edx, 0                  ; int64_t arg3
+0x30bd        mov esi, 4                  ; int64_t arg2
+0x30c2        mov rdi, rax                ; int64_t arg1
+0x30c5        call int_imm
+0x30ca        mov rax, qword [var_18h]
+
+0x30ce        mov edx, 5                  ; int64_t arg3
+0x30d3        mov esi, 2                  ; int64_t arg2
+0x30d8        mov rdi, rax                ; int64_t arg1
+0x30db        call int_imm
+0x30e0        mov rax, qword [var_18h]
+
+0x30e4        mov edx, 4                  ; int64_t arg3
+0x30e9        mov esi, 2                  ; int64_t arg2
+0x30ee        mov rdi, rax                ; int64_t arg1
+0x30f1        call int_stm
+0x30f6        mov rax, qword [var_18h]
+
+0x30fa        mov edx, 0                  ; int64_t arg3
+0x30ff        mov esi, 0x10               ; int64_t arg2
+0x3104        mov rdi, rax                ; int64_t arg1
+0x3107        call int_imm
+0x310c        mov rax, qword [var_18h]
+
+0x3110        mov edx, 0                  ; int64_t arg3
+0x3115        mov esi, 2                  ; int64_t arg2
+0x311a        mov rdi, rax                ; int64_t arg1
+0x311d        call int_imm
+0x3122        mov rax, qword [var_18h]
+
+0x3126        mov edx, 0x10               ; int64_t arg3
+0x312b        mov esi, 2                  ; int64_t arg2
+0x3130        mov rdi, rax                ; int64_t arg1
+0x3133        call int_sys
+0x3138        mov rax, qword [var_18h]
+
+0x313c        mov edx, 0x64               ; 'd' ; int64_t arg3
+0x3141        mov esi, 0x20               ; "@" ; int64_t arg2
+0x3146        mov rdi, rax                ; int64_t arg1
+0x3149        call int_imm
+0x314e        mov rax, qword [var_18h]
+
+0x3152        mov edx, 0x20               ; "@" ; int64_t arg3
+0x3157        mov esi, 8                  ; int64_t arg2
+0x315c        mov rdi, rax                ; int64_t arg1
+0x315f        call int_sys
+0x3164        mov rax, qword [var_18h]
+
+0x3168        mov edx, 1                  ; int64_t arg3
+0x316d        mov esi, 0x10               ; int64_t arg2
+0x3172        mov rdi, rax                ; int64_t arg1
+0x3175        call int_imm
+0x317a        mov rax, qword [var_18h]
+
+0x317e        mov edx, 0x20               ; "@" ; int64_t arg3
+0x3183        mov esi, 0x10               ; int64_t arg2
+0x3188        mov rdi, rax                ; int64_t arg1
+0x318b        call int_sys
+0x3190        mov rax, qword [var_18h]
+
+0x3194        mov edx, 0                  ; int64_t arg3
+0x3199        mov esi, 0x10               ; int64_t arg2
+0x319e        mov rdi, rax                ; int64_t arg1
+0x31a1        call int_imm
+0x31a6        jmp 0x3455
+;  XREF from2a0x31ab        mov rax, qword [var_18h]
+
+0x31af        mov edx, 0x49               ; 'I' ; int64_t arg3
+0x31b4        mov esi, 4                  ; int64_t arg2
+0x31b9        mov rdi, rax                ; int64_t arg1
+0x31bc        call int_imm
+0x31c1        mov rax, qword [var_18h]
+
+0x31c5        mov edx, 4                  ; int64_t arg3
+0x31ca        mov esi, 2                  ; int64_t arg2
+0x31cf        mov rdi, rax                ; int64_t arg1
+0x31d2        call int_stm
+0x31d7        mov rax, qword [var_18h]
+
+0x31db        mov edx, 0x10               ; int64_t arg3
+0x31e0        mov esi, 0x10               ; int64_t arg2
+0x31e5        mov rdi, rax                ; int64_t arg1
+0x31e8        call int_sys
+0x31ed        mov rax, qword [var_18h]
+
+0x31f1        mov edx, 0x4e               ; 'N' ; int64_t arg3
+0x31f6        mov esi, 4                  ; int64_t arg2
+0x31fb        mov rdi, rax                ; int64_t arg1
+0x31fe        call int_imm
+0x3203        mov rax, qword [var_18h]
+
+0x3207        mov edx, 4                  ; int64_t arg3
+0x320c        mov esi, 2                  ; int64_t arg2
+0x3211        mov rdi, rax                ; int64_t arg1
+0x3214        call int_stm
+0x3219        mov rax, qword [var_18h]
+
+0x321d        mov edx, 0x10               ; int64_t arg3
+0x3222        mov esi, 0x10               ; int64_t arg2
+0x3227        mov rdi, rax                ; int64_t arg1
+0x322a        call int_sys
+0x322f        mov rax, qword [var_18h]
+
+0x3233        mov edx, 0x43               ; 'C' ; int64_t arg3
+0x3238        mov esi, 4                  ; int64_t arg2
+0x323d        mov rdi, rax                ; int64_t arg1
+0x3240        call int_imm
+0x3245        mov rax, qword [var_18h]
+
+0x3249        mov edx, 4                  ; int64_t arg3
+0x324e        mov esi, 2                  ; int64_t arg2
+0x3253        mov rdi, rax                ; int64_t arg1
+0x3256        call int_stm
+0x325b        mov rax, qword [var_18h]
+
+0x325f        mov edx, 0x10               ; int64_t arg3
+0x3264        mov esi, 0x10               ; int64_t arg2
+0x3269        mov rdi, rax                ; int64_t arg1
+0x326c        call int_sys
+0x3271        mov rax, qword [var_18h]
+
+0x3275        mov edx, 0x4f               ; 'O' ; int64_t arg3
+0x327a        mov esi, 4                  ; int64_t arg2
+0x327f        mov rdi, rax                ; int64_t arg1
+0x3282        call int_imm
+0x3287        mov rax, qword [var_18h]
+
+0x328b        mov edx, 4                  ; int64_t arg3
+0x3290        mov esi, 2                  ; int64_t arg2
+0x3295        mov rdi, rax                ; int64_t arg1
+0x3298        call int_stm
+0x329d        mov rax, qword [var_18h]
+
+0x32a1        mov edx, 0x10               ; int64_t arg3
+0x32a6        mov esi, 0x10               ; int64_t arg2
+0x32ab        mov rdi, rax                ; int64_t arg1
+0x32ae        call int_sys
+0x32b3        mov rax, qword [var_18h]
+
+0x32b7        mov edx, 0x52               ; 'R' ; int64_t arg3
+0x32bc        mov esi, 4                  ; int64_t arg2
+0x32c1        mov rdi, rax                ; int64_t arg1
+0x32c4        call int_imm
+0x32c9        mov rax, qword [var_18h]
+
+0x32cd        mov edx, 4                  ; int64_t arg3
+0x32d2        mov esi, 2                  ; int64_t arg2
+0x32d7        mov rdi, rax                ; int64_t arg1
+0x32da        call int_stm
+0x32df        mov rax, qword [var_18h]
+
+0x32e3        mov edx, 0x10               ; int64_t arg3
+0x32e8        mov esi, 0x10               ; int64_t arg2
+0x32ed        mov rdi, rax                ; int64_t arg1
+0x32f0        call int_sys
+0x32f5        mov rax, qword [var_18h]
+
+0x32f9        mov edx, 0x52               ; 'R' ; int64_t arg3
+0x32fe        mov esi, 4                  ; int64_t arg2
+0x3303        mov rdi, rax                ; int64_t arg1
+0x3306        call int_imm
+0x330b        mov rax, qword [var_18h]
+
+0x330f        mov edx, 4                  ; int64_t arg3
+0x3314        mov esi, 2                  ; int64_t arg2
+0x3319        mov rdi, rax                ; int64_t arg1
+0x331c        call int_stm
+0x3321        mov rax, qword [var_18h]
+
+0x3325        mov edx, 0x10               ; int64_t arg3
+0x332a        mov esi, 0x10               ; int64_t arg2
+0x332f        mov rdi, rax                ; int64_t arg1
+0x3332        call int_sys
+0x3337        mov rax, qword [var_18h]
+
+0x333b        mov edx, 0x45               ; 'E' ; int64_t arg3
+0x3340        mov esi, 4                  ; int64_t arg2
+0x3345        mov rdi, rax                ; int64_t arg1
+0x3348        call int_imm
+0x334d        mov rax, qword [var_18h]
+
+0x3351        mov edx, 4                  ; int64_t arg3
+0x3356        mov esi, 2                  ; int64_t arg2
+0x335b        mov rdi, rax                ; int64_t arg1
+0x335e        call int_stm
+0x3363        mov rax, qword [var_18h]
+
+0x3367        mov edx, 0x10               ; int64_t arg3
+0x336c        mov esi, 0x10               ; int64_t arg2
+0x3371        mov rdi, rax                ; int64_t arg1
+0x3374        call int_sys
+0x3379        mov rax, qword [var_18h]
+
+0x337d        mov edx, 0x43               ; 'C' ; int64_t arg3
+0x3382        mov esi, 4                  ; int64_t arg2
+0x3387        mov rdi, rax                ; int64_t arg1
+0x338a        call int_imm
+0x338f        mov rax, qword [var_18h]
+
+0x3393        mov edx, 4                  ; int64_t arg3
+0x3398        mov esi, 2                  ; int64_t arg2
+0x339d        mov rdi, rax                ; int64_t arg1
+0x33a0        call int_stm
+0x33a5        mov rax, qword [var_18h]
+
+0x33a9        mov edx, 0x10               ; int64_t arg3
+0x33ae        mov esi, 0x10               ; int64_t arg2
+0x33b3        mov rdi, rax                ; int64_t arg1
+0x33b6        call int_sys
+0x33bb        mov rax, qword [var_18h]
+
+0x33bf        mov edx, 0x54               ; 'T' ; int64_t arg3
+0x33c4        mov esi, 4                  ; int64_t arg2
+0x33c9        mov rdi, rax                ; int64_t arg1
+0x33cc        call int_imm
+0x33d1        mov rax, qword [var_18h]
+
+0x33d5        mov edx, 4                  ; int64_t arg3
+0x33da        mov esi, 2                  ; int64_t arg2
+0x33df        mov rdi, rax                ; int64_t arg1
+0x33e2        call int_stm
+0x33e7        mov rax, qword [var_18h]
+
+0x33eb        mov edx, 0x10               ; int64_t arg3
+0x33f0        mov esi, 0x10               ; int64_t arg2
+0x33f5        mov rdi, rax                ; int64_t arg1
+0x33f8        call int_sys
+0x33fd        mov rax, qword [var_18h]
+
+0x3401        mov edx, 0x21               ; '!' ; int64_t arg3
+0x3406        mov esi, 4                  ; int64_t arg2
+0x340b        mov rdi, rax                ; int64_t arg1
+0x340e        call int_imm
+0x3413        mov rax, qword [var_18h]
+
+0x3417        mov edx, 4                  ; int64_t arg3
+0x341c        mov esi, 2                  ; int64_t arg2
+0x3421        mov rdi, rax                ; int64_t arg1
+0x3424        call int_stm
+0x3429        mov rax, qword [var_18h]
+
+0x342d        mov edx, 0x10               ; int64_t arg3
+0x3432        mov esi, 0x10               ; int64_t arg2
+0x3437        mov rdi, rax                ; int64_t arg1
+0x343a        call int_sys
+0x343f        mov rax, qword [var_18h]
+
+0x3443        mov edx, 1                  ; int64_t arg3
+0x3448        mov esi, 0x10               ; int64_t arg2
+0x344d        mov rdi, rax                ; int64_t arg1
+0x3450        call int_imm
+;  XREF from310x3455        mov rax, qword [var_18h]
+
+0x3459        mov edx, 0xa                ; int64_t arg3
+0x345e        mov esi, 4                  ; int64_t arg2
+0x3463        mov rdi, rax                ; int64_t arg1
+0x3466        call int_imm
+0x346b        mov rax, qword [var_18h]
+
+0x346f        mov edx, 4                  ; int64_t arg3
+0x3474        mov esi, 2                  ; int64_t arg2
+0x3479        mov rdi, rax                ; int64_t arg1
+0x347c        call int_stm
+0x3481        mov rax, qword [var_18h]
+
+0x3485        mov edx, 0x10               ; int64_t arg3
+0x348a        mov esi, 0x10               ; int64_t arg2
+0x348f        mov rdi, rax                ; int64_t arg1
+0x3492        call int_sys
+0x3497        mov rax, qword [var_18h]
+
+0x349b        mov edx, 0x10               ; int64_t arg3
+0x34a0        mov esi, 1                  ; int64_t arg2
+0x34a5        mov rdi, rax                ; int64_t arg1
+0x34a8        call int_sys
+0x34ad        nop
+0x34ae        leave
+0x34af        ret

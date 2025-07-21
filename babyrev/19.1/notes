@@ -1,0 +1,43 @@
+registers id:
+a 0x
+b 0x
+c 0x
+d 0x
+s 0x
+i 0x
+f 0x
+
+SYSCALLS:
+0x - sys_open
+0x - sys_read
+0x - sys_write
+0x - sys_sleep
+0x - sys_exit
+
+syscalls:
+sys_exit:  exit
+sys_read:  read from fd(A) (C) Bytes [into (B)] - A holds num of bytes read
+sys_write: write to fd(A) byte(D) ??????
+
+0x        exec
+0x        crash
+0x        read_memory
+0x        write_memory
+0x        read_register
+0x        write_register
+0x        int_sys
+0x        int_stm
+0x        int_imm
+0x        int_stk
+0x        int_ldm
+0x        int_cmp
+0x        int_jmp
+0x        int_add
+0x        sys_sleep
+0x        sys_open
+0x        sys_write
+0x        sys_read
+0x        sys_exit
+
+afn int_stk   0x
+afn int_jmp   0x

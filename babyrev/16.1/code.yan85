@@ -1,0 +1,705 @@
+IMM b = 0x40
+IMM c = 0x06
+IMM a = 0x00
+SYS 0x10 a    ; sys_read from stdin 6 bytes into [0x40]
+
+IMM b = 0x60
+IMM c = 0x01
+
+save password to memory at address 0x60 {
+	IMM a = 0xdc
+	STM *b = a
+	ADD b c
+
+	IMM a = 0x3a
+	STM *b = a
+	ADD b c
+
+	IMM a = 0x27
+	STM *b = a
+	ADD b c
+
+	IMM a = 0xf5
+	STM *b = a
+	ADD b c
+
+	IMM a = 0xf5
+	STM *b = a
+	ADD b c
+
+	IMM a = 0x2e
+	STM *b = a
+	ADD b c
+}
+
+compare [0x40][0-5] with 0x60[0-5] {
+	IMM b = 0x60
+	LDM b b
+
+	IMM a 0x40
+	LDM a a
+
+	CMP a b       ; if a != b: var_4h = 0
+
+	IMM b = 0x61
+	LDM b b
+
+	IMM a 0x41
+	LDM a a
+
+	CMP a b       ; if a == b: var_4h = 0
+
+	IMM b = 0x62
+	LDM b b
+
+	IMM a 0x42
+	LDM a a
+
+	CMP a b       ; if a == b: var_4h = 0
+
+	IMM b = 0x63
+	LDM b b
+
+	IMM a 0x43
+	LDM a a
+
+	CMP a b       ; if a == b: var_4h = 0
+
+	IMM b = 0x64
+	LDM b b
+
+	IMM a 0x44
+	LDM a a
+
+	CMP a b       ; if a == b: var_4h = 0
+
+	IMM b = 0x65
+	LDM b b
+
+	IMM a 0x45
+	LDM a a
+
+	CMP a b       ; if a == b: var_4h = 0
+}
+
+IMM a = 0x01
+IMM b = 0x00
+IMM c = 0x01
+
+if var_4h == 0: goto 0x278f     ; (incorrect password)
+
+IMM d = 0x43  ; 'C'
+STM *b = d
+SYS 0x02 a    ; sys_write to stdout 1 byte from [0x00]
+
+IMM d = 0x4f  ; 'O'
+STM *b = d
+SYS 0x02 a    ; sys_write to stdout 1 byte from [0x00]
+
+IMM d = 0x52  ; 'R'
+STM *b = d
+SYS 0x02 a    ; sys_write to stdout 1 byte from [0x00]
+
+IMM d = 0x52  ; 'R'
+STM *b = d
+SYS 0x02 a    ; sys_write to stdout 1 byte from [0x00]
+
+IMM d = 0x45  ; 'E'
+STM *b = d
+SYS 0x02 a    ; sys_write to stdout 1 byte from [0x00]
+
+IMM d = 0x43  ; 'C'
+STM *b = d
+SYS 0x02 a    ; sys_write to stdout 1 byte from [0x00]
+
+IMM d = 0x54  ; 'T'
+STM *b = d
+SYS 0x02 a    ; sys_write to stdout 1 byte from [0x00]
+
+IMM d = 0x21  ; '!'
+STM *b = d
+SYS 0x02 a    ; sys_write to stdout 1 byte from [0x00]
+
+0x223a        mov edx, 0x20              
+0x223f        mov esi, 2                 
+0x2244        mov rdi, rax               
+0x2247        call int_IMM
+0x224c        mov rax, qword [var_18h]
+
+0x2250        mov edx, 2                 
+0x2255        mov esi, 4                 
+0x225a        mov rdi, rax               
+0x225d        call int_STM
+0x2262        mov rax, qword [var_18h]
+
+0x2266        mov edx, 0x10              
+0x226b        mov esi, 2                 
+0x2270        mov rdi, rax               
+0x2273        call int_SYS
+0x2278        mov rax, qword [var_18h]
+
+0x227c        mov edx, 0x59              
+0x2281        mov esi, 2                 
+0x2286        mov rdi, rax               
+0x2289        call int_IMM
+0x228e        mov rax, qword [var_18h]
+
+0x2292        mov edx, 2                 
+0x2297        mov esi, 4                 
+0x229c        mov rdi, rax               
+0x229f        call int_STM
+0x22a4        mov rax, qword [var_18h]
+
+0x22a8        mov edx, 0x10              
+0x22ad        mov esi, 2                 
+0x22b2        mov rdi, rax               
+0x22b5        call int_SYS
+0x22ba        mov rax, qword [var_18h]
+
+0x22be        mov edx, 0x6f              
+0x22c3        mov esi, 2                 
+0x22c8        mov rdi, rax               
+0x22cb        call int_IMM
+0x22d0        mov rax, qword [var_18h]
+
+0x22d4        mov edx, 2                 
+0x22d9        mov esi, 4                 
+0x22de        mov rdi, rax               
+0x22e1        call int_STM
+0x22e6        mov rax, qword [var_18h]
+
+0x22ea        mov edx, 0x10              
+0x22ef        mov esi, 2                 
+0x22f4        mov rdi, rax               
+0x22f7        call int_SYS
+0x22fc        mov rax, qword [var_18h]
+
+0x2300        mov edx, 0x75              
+0x2305        mov esi, 2                 
+0x230a        mov rdi, rax               
+0x230d        call int_IMM
+0x2312        mov rax, qword [var_18h]
+
+0x2316        mov edx, 2                 
+0x231b        mov esi, 4                 
+0x2320        mov rdi, rax               
+0x2323        call int_STM
+0x2328        mov rax, qword [var_18h]
+
+0x232c        mov edx, 0x10              
+0x2331        mov esi, 2                 
+0x2336        mov rdi, rax               
+0x2339        call int_SYS
+0x233e        mov rax, qword [var_18h]
+
+0x2342        mov edx, 0x72              
+0x2347        mov esi, 2                 
+0x234c        mov rdi, rax               
+0x234f        call int_IMM
+0x2354        mov rax, qword [var_18h]
+
+0x2358        mov edx, 2                 
+0x235d        mov esi, 4                 
+0x2362        mov rdi, rax               
+0x2365        call int_STM
+0x236a        mov rax, qword [var_18h]
+
+0x236e        mov edx, 0x10              
+0x2373        mov esi, 2                 
+0x2378        mov rdi, rax               
+0x237b        call int_SYS
+0x2380        mov rax, qword [var_18h]
+
+0x2384        mov edx, 0x20              
+0x2389        mov esi, 2                 
+0x238e        mov rdi, rax               
+0x2391        call int_IMM
+0x2396        mov rax, qword [var_18h]
+
+0x239a        mov edx, 2                 
+0x239f        mov esi, 4                 
+0x23a4        mov rdi, rax               
+0x23a7        call int_STM
+0x23ac        mov rax, qword [var_18h]
+
+0x23b0        mov edx, 0x10              
+0x23b5        mov esi, 2                 
+0x23ba        mov rdi, rax               
+0x23bd        call int_SYS
+0x23c2        mov rax, qword [var_18h]
+
+0x23c6        mov edx, 0x66              
+0x23cb        mov esi, 2                 
+0x23d0        mov rdi, rax               
+0x23d3        call int_IMM
+0x23d8        mov rax, qword [var_18h]
+
+0x23dc        mov edx, 2                 
+0x23e1        mov esi, 4                 
+0x23e6        mov rdi, rax               
+0x23e9        call int_STM
+0x23ee        mov rax, qword [var_18h]
+
+0x23f2        mov edx, 0x10              
+0x23f7        mov esi, 2                 
+0x23fc        mov rdi, rax               
+0x23ff        call int_SYS
+0x2404        mov rax, qword [var_18h]
+
+0x2408        mov edx, 0x6c              
+0x240d        mov esi, 2                 
+0x2412        mov rdi, rax               
+0x2415        call int_IMM
+0x241a        mov rax, qword [var_18h]
+
+0x241e        mov edx, 2                 
+0x2423        mov esi, 4                 
+0x2428        mov rdi, rax               
+0x242b        call int_STM
+0x2430        mov rax, qword [var_18h]
+
+0x2434        mov edx, 0x10              
+0x2439        mov esi, 2                 
+0x243e        mov rdi, rax               
+0x2441        call int_SYS
+0x2446        mov rax, qword [var_18h]
+
+0x244a        mov edx, 0x61              
+0x244f        mov esi, 2                 
+0x2454        mov rdi, rax               
+0x2457        call int_IMM
+0x245c        mov rax, qword [var_18h]
+
+0x2460        mov edx, 2                 
+0x2465        mov esi, 4                 
+0x246a        mov rdi, rax               
+0x246d        call int_STM
+0x2472        mov rax, qword [var_18h]
+
+0x2476        mov edx, 0x10              
+0x247b        mov esi, 2                 
+0x2480        mov rdi, rax               
+0x2483        call int_SYS
+0x2488        mov rax, qword [var_18h]
+
+0x248c        mov edx, 0x67              
+0x2491        mov esi, 2                 
+0x2496        mov rdi, rax               
+0x2499        call int_IMM
+0x249e        mov rax, qword [var_18h]
+
+0x24a2        mov edx, 2                 
+0x24a7        mov esi, 4                 
+0x24ac        mov rdi, rax               
+0x24af        call int_STM
+0x24b4        mov rax, qword [var_18h]
+
+0x24b8        mov edx, 0x10              
+0x24bd        mov esi, 2                 
+0x24c2        mov rdi, rax               
+0x24c5        call int_SYS
+0x24ca        mov rax, qword [var_18h]
+
+0x24ce        mov edx, 0x3a              
+0x24d3        mov esi, 2                 
+0x24d8        mov rdi, rax               
+0x24db        call int_IMM
+0x24e0        mov rax, qword [var_18h]
+
+0x24e4        mov edx, 2                 
+0x24e9        mov esi, 4                 
+0x24ee        mov rdi, rax               
+0x24f1        call int_STM
+0x24f6        mov rax, qword [var_18h]
+
+0x24fa        mov edx, 0x10              
+0x24ff        mov esi, 2                 
+0x2504        mov rdi, rax               
+0x2507        call int_SYS
+0x250c        mov rax, qword [var_18h]
+
+0x2510        mov edx, 0xa               
+0x2515        mov esi, 2                 
+0x251a        mov rdi, rax               
+0x251d        call int_IMM
+0x2522        mov rax, qword [var_18h]
+
+0x2526        mov edx, 2                 
+0x252b        mov esi, 4                 
+0x2530        mov rdi, rax               
+0x2533        call int_STM
+0x2538        mov rax, qword [var_18h]
+
+0x253c        mov edx, 0x10              
+0x2541        mov esi, 2                 
+0x2546        mov rdi, rax               
+0x2549        call int_SYS
+0x254e        mov rax, qword [var_18h]
+
+0x2552        mov edx, 0x2f              
+0x2557        mov esi, 2                 
+0x255c        mov rdi, rax               
+0x255f        call int_IMM
+0x2564        mov rax, qword [var_18h]
+
+0x2568        mov edx, 0                 
+0x256d        mov esi, 4                 
+0x2572        mov rdi, rax               
+0x2575        call int_IMM
+0x257a        mov rax, qword [var_18h]
+
+0x257e        mov edx, 2                 
+0x2583        mov esi, 4                 
+0x2588        mov rdi, rax               
+0x258b        call int_STM
+0x2590        mov rax, qword [var_18h]
+
+0x2594        mov edx, 0x66              
+0x2599        mov esi, 2                 
+0x259e        mov rdi, rax               
+0x25a1        call int_IMM
+0x25a6        mov rax, qword [var_18h]
+
+0x25aa        mov edx, 1                 
+0x25af        mov esi, 4                 
+0x25b4        mov rdi, rax               
+0x25b7        call int_IMM
+0x25bc        mov rax, qword [var_18h]
+
+0x25c0        mov edx, 2                 
+0x25c5        mov esi, 4                 
+0x25ca        mov rdi, rax               
+0x25cd        call int_STM
+0x25d2        mov rax, qword [var_18h]
+
+0x25d6        mov edx, 0x6c              
+0x25db        mov esi, 2                 
+0x25e0        mov rdi, rax               
+0x25e3        call int_IMM
+0x25e8        mov rax, qword [var_18h]
+
+0x25ec        mov edx, 2                 
+0x25f1        mov esi, 4                 
+0x25f6        mov rdi, rax               
+0x25f9        call int_IMM
+0x25fe        mov rax, qword [var_18h]
+
+0x2602        mov edx, 2                 
+0x2607        mov esi, 4                 
+0x260c        mov rdi, rax               
+0x260f        call int_STM
+0x2614        mov rax, qword [var_18h]
+
+0x2618        mov edx, 0x61              
+0x261d        mov esi, 2                 
+0x2622        mov rdi, rax               
+0x2625        call int_IMM
+0x262a        mov rax, qword [var_18h]
+
+0x262e        mov edx, 3                 
+0x2633        mov esi, 4                 
+0x2638        mov rdi, rax               
+0x263b        call int_IMM
+0x2640        mov rax, qword [var_18h]
+
+0x2644        mov edx, 2                 
+0x2649        mov esi, 4                 
+0x264e        mov rdi, rax               
+0x2651        call int_STM
+0x2656        mov rax, qword [var_18h]
+
+0x265a        mov edx, 0x67              
+0x265f        mov esi, 2                 
+0x2664        mov rdi, rax               
+0x2667        call int_IMM
+0x266c        mov rax, qword [var_18h]
+
+0x2670        mov edx, 4                 
+0x2675        mov esi, 4                 
+0x267a        mov rdi, rax               
+0x267d        call int_IMM
+0x2682        mov rax, qword [var_18h]
+
+0x2686        mov edx, 2                 
+0x268b        mov esi, 4                 
+0x2690        mov rdi, rax               
+0x2693        call int_STM
+0x2698        mov rax, qword [var_18h]
+
+0x269c        mov edx, 0                 
+0x26a1        mov esi, 2                 
+0x26a6        mov rdi, rax               
+0x26a9        call int_IMM
+0x26ae        mov rax, qword [var_18h]
+
+0x26b2        mov edx, 5                 
+0x26b7        mov esi, 4                 
+0x26bc        mov rdi, rax               
+0x26bf        call int_IMM
+0x26c4        mov rax, qword [var_18h]
+
+0x26c8        mov edx, 2                 
+0x26cd        mov esi, 4                 
+0x26d2        mov rdi, rax               
+0x26d5        call int_STM
+0x26da        mov rax, qword [var_18h]
+
+0x26de        mov edx, 0                 
+0x26e3        mov esi, 0x10              
+0x26e8        mov rdi, rax               
+0x26eb        call int_IMM
+0x26f0        mov rax, qword [var_18h]
+
+0x26f4        mov edx, 0                 
+0x26f9        mov esi, 4                 
+0x26fe        mov rdi, rax               
+0x2701        call int_IMM
+0x2706        mov rax, qword [var_18h]
+
+0x270a        mov edx, 0x10              
+0x270f        mov esi, 1                 
+0x2714        mov rdi, rax               
+0x2717        call int_SYS
+0x271c        mov rax, qword [var_18h]
+
+0x2720        mov edx, 0x64              
+0x2725        mov esi, 0x20              
+0x272a        mov rdi, rax               
+0x272d        call int_IMM
+0x2732        mov rax, qword [var_18h]
+
+0x2736        mov edx, 0x20              
+0x273b        mov esi, 0x10              
+0x2740        mov rdi, rax               
+0x2743        call int_SYS
+0x2748        mov rax, qword [var_18h]
+
+0x274c        mov edx, 1                 
+0x2751        mov esi, 0x10              
+0x2756        mov rdi, rax               
+0x2759        call int_IMM
+0x275e        mov rax, qword [var_18h]
+
+0x2762        mov edx, 0x20              
+0x2767        mov esi, 2                 
+0x276c        mov rdi, rax               
+0x276f        call int_SYS
+0x2774        mov rax, qword [var_18h]
+
+0x2778        mov edx, 0                 
+0x277d        mov esi, 0x10              
+0x2782        mov rdi, rax               
+0x2785        call int_IMM
+0x278a        jmp 0x2a39
+;  XRE        
+0x278f        mov rax, qword [var_18h]
+
+0x2793        mov edx, 0x49              
+0x2798        mov esi, 2                 
+0x279d        mov rdi, rax               
+0x27a0        call int_IMM
+0x27a5        mov rax, qword [var_18h]
+
+0x27a9        mov edx, 2                 
+0x27ae        mov esi, 4                 
+0x27b3        mov rdi, rax               
+0x27b6        call int_STM
+0x27bb        mov rax, qword [var_18h]
+
+0x27bf        mov edx, 0x10              
+0x27c4        mov esi, 2                 
+0x27c9        mov rdi, rax               
+0x27cc        call int_SYS
+0x27d1        mov rax, qword [var_18h]
+
+0x27d5        mov edx, 0x4e              
+0x27da        mov esi, 2                 
+0x27df        mov rdi, rax               
+0x27e2        call int_IMM
+0x27e7        mov rax, qword [var_18h]
+
+0x27eb        mov edx, 2                 
+0x27f0        mov esi, 4                 
+0x27f5        mov rdi, rax               
+0x27f8        call int_STM
+0x27fd        mov rax, qword [var_18h]
+
+0x2801        mov edx, 0x10              
+0x2806        mov esi, 2                 
+0x280b        mov rdi, rax               
+0x280e        call int_SYS
+0x2813        mov rax, qword [var_18h]
+
+0x2817        mov edx, 0x43              
+0x281c        mov esi, 2                 
+0x2821        mov rdi, rax               
+0x2824        call int_IMM
+0x2829        mov rax, qword [var_18h]
+
+0x282d        mov edx, 2                 
+0x2832        mov esi, 4                 
+0x2837        mov rdi, rax               
+0x283a        call int_STM
+0x283f        mov rax, qword [var_18h]
+
+0x2843        mov edx, 0x10              
+0x2848        mov esi, 2                 
+0x284d        mov rdi, rax               
+0x2850        call int_SYS
+0x2855        mov rax, qword [var_18h]
+
+0x2859        mov edx, 0x4f              
+0x285e        mov esi, 2                 
+0x2863        mov rdi, rax               
+0x2866        call int_IMM
+0x286b        mov rax, qword [var_18h]
+
+0x286f        mov edx, 2                 
+0x2874        mov esi, 4                 
+0x2879        mov rdi, rax               
+0x287c        call int_STM
+0x2881        mov rax, qword [var_18h]
+
+0x2885        mov edx, 0x10              
+0x288a        mov esi, 2                 
+0x288f        mov rdi, rax               
+0x2892        call int_SYS
+0x2897        mov rax, qword [var_18h]
+
+0x289b        mov edx, 0x52              
+0x28a0        mov esi, 2                 
+0x28a5        mov rdi, rax               
+0x28a8        call int_IMM
+0x28ad        mov rax, qword [var_18h]
+
+0x28b1        mov edx, 2                 
+0x28b6        mov esi, 4                 
+0x28bb        mov rdi, rax               
+0x28be        call int_STM
+0x28c3        mov rax, qword [var_18h]
+
+0x28c7        mov edx, 0x10              
+0x28cc        mov esi, 2                 
+0x28d1        mov rdi, rax               
+0x28d4        call int_SYS
+0x28d9        mov rax, qword [var_18h]
+
+0x28dd        mov edx, 0x52              
+0x28e2        mov esi, 2                 
+0x28e7        mov rdi, rax               
+0x28ea        call int_IMM
+0x28ef        mov rax, qword [var_18h]
+
+0x28f3        mov edx, 2                 
+0x28f8        mov esi, 4                 
+0x28fd        mov rdi, rax               
+0x2900        call int_STM
+0x2905        mov rax, qword [var_18h]
+
+0x2909        mov edx, 0x10              
+0x290e        mov esi, 2                 
+0x2913        mov rdi, rax               
+0x2916        call int_SYS
+0x291b        mov rax, qword [var_18h]
+
+0x291f        mov edx, 0x45              
+0x2924        mov esi, 2                 
+0x2929        mov rdi, rax               
+0x292c        call int_IMM
+0x2931        mov rax, qword [var_18h]
+
+0x2935        mov edx, 2                 
+0x293a        mov esi, 4                 
+0x293f        mov rdi, rax               
+0x2942        call int_STM
+0x2947        mov rax, qword [var_18h]
+
+0x294b        mov edx, 0x10              
+0x2950        mov esi, 2                 
+0x2955        mov rdi, rax               
+0x2958        call int_SYS
+0x295d        mov rax, qword [var_18h]
+
+0x2961        mov edx, 0x43              
+0x2966        mov esi, 2                 
+0x296b        mov rdi, rax               
+0x296e        call int_IMM
+0x2973        mov rax, qword [var_18h]
+
+0x2977        mov edx, 2                 
+0x297c        mov esi, 4                 
+0x2981        mov rdi, rax               
+0x2984        call int_STM
+0x2989        mov rax, qword [var_18h]
+
+0x298d        mov edx, 0x10              
+0x2992        mov esi, 2                 
+0x2997        mov rdi, rax               
+0x299a        call int_SYS
+0x299f        mov rax, qword [var_18h]
+
+0x29a3        mov edx, 0x54              
+0x29a8        mov esi, 2                 
+0x29ad        mov rdi, rax               
+0x29b0        call int_IMM
+0x29b5        mov rax, qword [var_18h]
+
+0x29b9        mov edx, 2                 
+0x29be        mov esi, 4                 
+0x29c3        mov rdi, rax               
+0x29c6        call int_STM
+0x29cb        mov rax, qword [var_18h]
+
+0x29cf        mov edx, 0x10              
+0x29d4        mov esi, 2                 
+0x29d9        mov rdi, rax               
+0x29dc        call int_SYS
+0x29e1        mov rax, qword [var_18h]
+
+0x29e5        mov edx, 0x21              
+0x29ea        mov esi, 2                 
+0x29ef        mov rdi, rax               
+0x29f2        call int_IMM
+0x29f7        mov rax, qword [var_18h]
+
+0x29fb        mov edx, 2                 
+0x2a00        mov esi, 4                 
+0x2a05        mov rdi, rax               
+0x2a08        call int_STM
+0x2a0d        mov rax, qword [var_18h]
+
+0x2a11        mov edx, 0x10              
+0x2a16        mov esi, 2                 
+0x2a1b        mov rdi, rax               
+0x2a1e        call int_SYS
+0x2a23        mov rax, qword [var_18h]
+
+0x2a27        mov edx, 1                 
+0x2a2c        mov esi, 0x10              
+0x2a31        mov rdi, rax               
+0x2a34        call int_IMM
+;  XRE        
+0x2a39        mov rax, qword [var_18h]
+
+0x2a3d        mov edx, 0xa               
+0x2a42        mov esi, 2                 
+0x2a47        mov rdi, rax               
+0x2a4a        call int_IMM
+0x2a4f        mov rax, qword [var_18h]
+
+0x2a53        mov edx, 2                 
+0x2a58        mov esi, 4                 
+0x2a5d        mov rdi, rax               
+0x2a60        call int_STM
+0x2a65        mov rax, qword [var_18h]
+
+0x2a69        mov edx, 0x10              
+0x2a6e        mov esi, 2                 
+0x2a73        mov rdi, rax               
+0x2a76        call int_SYS
+0x2a7b        mov rax, qword [var_18h]
+
+0x2a7f        mov edx, 0x10              
+0x2a84        mov esi, 8                 
+0x2a89        mov rdi, rax               
+0x2a8c        call int_SYS

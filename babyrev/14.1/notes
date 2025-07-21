@@ -1,0 +1,43 @@
+registers id:
+a 0x40
+b 0x20
+c 0x04
+d 0x02
+s 0x10
+i 0x01
+f 0x08
+
+syscalls:
+0 exit
+1 read from fd(A) (C) Bytes [into (B)] - A holds num of bytes read
+
+main
+sym.execute_program
+sym.read_register
+sym.write_register
+sym.read_memory
+sym.write_memory
+sym.describe_register
+sym.describe_instruction
+sym.describe_flags
+sym.interpret_stm
+sym.interpret_imm
+sym.interpret_stk
+sym.interpret_cmp
+sym.interpret_ldm
+sym.interpret_jmp
+sym.interpret_add
+sym.interpret_sys
+sym.sys_exit    
+sym.sys_read    
+sym.sys_write   
+sym.sys_open    
+sym.sys_sleep   
+sym.crash
+
+0x02 0x1291 - sys_open
+0x20 0x12c3 - sys_read
+0x01 0x12f5 - sys_write
+0x08 0x1344 - sys_sleep
+0x04 0x1327 - sys_exit
+

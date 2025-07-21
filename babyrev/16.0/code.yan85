@@ -1,0 +1,208 @@
+IMM b = 0x6a
+IMM c = 0x08
+IMM a = 0x00
+SYS 0x10 a ; read 8 bytes into (b) from stdin
+
+IMM b = 0x8a
+IMM c = 0x01
+
+IMM a = 0xd4
+STM *b = a
+ADD b c
+
+IMM a = 0x2e
+STM *b = a
+ADD b c
+
+IMM a = 0xd0
+STM *b = a
+ADD b c
+
+IMM a = 0x00
+STM *b = a
+ADD b c
+
+IMM a = 0x3c
+STM *b = a
+ADD b c
+
+IMM a = 0xff
+STM *b = a
+ADD b c
+
+IMM a = 0xce
+STM *b = a
+ADD b c
+
+IMM a = 0xdd
+STM *b = a
+ADD b c
+
+is password wrong? if its a match: var_4h = 0
+{
+    IMM b = 0x8a
+    LDM b b
+
+    IMM a = 0x6a
+    LDM a a
+
+    CMP a b
+    test var_4h
+
+    IMM b = 0x8b
+    LDM b b
+
+    IMM a = 0x6b
+    LDM a a
+
+    CMP a b
+    test var_4h
+
+    IMM b = 0x8c
+    LDM b b
+
+    IMM a = 0x6c
+    LDM a a
+
+    CMP a b
+    test var_4h
+
+    IMM b = 0x8d
+    LDM b b
+
+    IMM a = 0x6d
+    LDM a a
+
+    CMP a b
+    test var_4h
+
+    IMM b = 0x8e
+    LDM b b
+
+    IMM a = 0x6e
+    LDM a a
+
+    CMP a b
+    test var_4h
+
+    IMM b = 0x8f
+    LDM b b
+
+    IMM a = 0x6f
+    LDM a a
+
+    CMP a b
+    test var_4h
+
+    IMM b = 0x90
+    LDM b b
+
+    IMM a = 0x70
+    LDM a a
+
+    CMP a b
+    test var_4h
+
+    IMM b = 0x91
+    LDM b b
+
+    IMM a = 0x71
+    LDM a a
+
+    CMP a b
+    test var_4h
+}
+
+IMM a = 0x01
+IMM b = 0x00
+IMM c = 0x01
+
+if (var_4h == 0) { goto 0x2ddb }
+
+print "CORRECT! your flag:" {
+    IMM d = 0x43 ; 'C'
+    STM *b = d
+    SYS 0x01 a   ; sys_write
+
+    IMM d = 0x4f ; 'O'
+    STM *b = d
+    SYS 0x01 a   ; sys_write
+
+    IMM d = 0x52 ; 'R'
+    STM *b = d
+    SYS 0x01 a   ; sys_write
+
+    IMM d = 0x52 ; 'R'
+    STM *b = d
+    SYS 0x01 a   ; sys_write
+
+    IMM d = 0x45 ; 'E'
+    STM *b = d
+    SYS 0x01 a   ; sys_write
+
+    IMM d = 0x43 ; 'C'
+    STM *b = d
+    SYS 0x01 a   ; sys_write
+
+    IMM d = 0x54 ; 'T'
+    STM *b = d
+    SYS 0x01 a   ; sys_write
+
+    IMM d = 0x21 ; '!'
+    STM *b = d
+    SYS 0x01 a   ; sys_write
+
+    IMM d = 0x20
+    STM *b = d
+    SYS 0x01 a ; sys_write
+
+    IMM d = 0x59
+    STM *b = d
+    SYS 0x01 a ; sys_write
+    ...
+
+    IMM d = 0x0a '\n'
+    STM *b = d
+    SYS 0x01 a ; sys_write 
+}
+
+write to address 0x00 the string '/flag' {
+    IMM d = 0x2f ; '/'
+    IMM b = 0x00
+    STM *b = d
+
+    IMM d = 0x66 ; 'f'
+    IMM b = 0x01
+    STM *b = d
+
+    IMM d = 0x6c ; 'l'
+    IMM b = 0x02
+    STM *b = d
+
+    IMM d = 0x61 ; 'a'
+    IMM b = 0x03
+    STM *b = d
+
+    IMM d = 0x67 ; 'g'
+    IMM b = 0x04
+    STM *b = d
+
+    IMM d = 0x00 ; '\0'
+    IMM b = 0x05
+    STM *b = d
+}
+
+write the read contents from "/flag" {
+    IMM a = 0x00
+    IMM b = 0x00
+    sys 0x08 a ; sys_open
+
+    IMM c = 0x64
+    sys 0x10 c ; sys_read
+
+    IMM a = 0x01
+    SYS 0x01 d ; sys_write
+
+    IMM a = 0x00
+}
+

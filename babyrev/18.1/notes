@@ -1,0 +1,71 @@
+registers id:
+a 0x04
+b 0x20
+c 0x10
+d 0x08
+s 0x01
+i 0x02
+f 0x40
+
+SYSCALLS:
+0x04 - sys_open
+0x02 - sys_read
+0x20 - sys_write
+0x08 - sys_sleep
+0x10 - sys_exit
+
+syscalls:
+sys_exit:  exit
+sys_read:  read from fd(A) (C) Bytes [into (B)] - A holds num of bytes read
+sys_write: write to fd(A) byte(D) ??????
+
+0x1a77        exec
+0x        crash
+0x14c6        read_memory
+0x14e7        write_memory
+0x1343        read_register
+0x13f5        write_register
+0x1876        int_sys
+0x1667        int_stm
+0x1513        int_imm
+0x        int_stk
+0x16c6        int_ldm
+0x171d        int_cmp
+0x        int_jmp
+0x1548        int_add
+0x1324        sys_sleep
+0x1271        sys_open
+0x12d5        sys_write
+0x12a3        sys_read
+0x1307        sys_exit
+
+afn read_memory    0x14c6
+afn write_memory   0x14e7
+afn read_register  0x1343
+afn write_register 0x13f5
+
+afn int_sys   0x1876 
+afn int_stm   0x1667 
+afn int_imm   0x1513
+afn int_ldm   0x16c6 
+afn int_cmp   0x171d
+afn int_add   0x1548
+afn sys_sleep 0x1324
+afn sys_open  0x1271
+afn sys_write 0x12d5
+afn sys_read  0x12a3
+afm sys_exit  0x1307
+
+afn int_stk   0x
+afn int_jmp   0x
+
+b = 0x
+b = *b
+
+a = 0x
+a = *a
+
+c = 0x
+a += c
+
+; if a != b: var_4h = 0

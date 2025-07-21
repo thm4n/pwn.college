@@ -1,0 +1,40 @@
+IMM b = 0x7d
+IMM c = 0x08
+IMM a = 0x00
+SYS 0x20 a ; read 8 bytes from stdin to 0x7d
+
+IMM b = 0x9d
+IMM c = 0x01
+
+IMM a = 0xc9
+STM *b = a
+ADD b c
+
+IMM a = 0x3a
+STM *b = a
+ADD b c
+
+IMM a = 0x55
+STM *b = a
+ADD b c
+
+IMM a = 0xc1
+STM *b = a
+ADD b c
+
+IMM a = 0x1a
+STM *b = a
+ADD b c
+
+IMM a = 0x46
+STM *b = a
+ADD b c
+
+IMM a = 0x71
+STM *b = a
+ADD b c
+
+IMM a = 0xa8
+STM *b = a
+ADD b c
+

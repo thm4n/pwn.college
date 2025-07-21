@@ -1,0 +1,18 @@
+IMM b = 0x56     ; 'V'
+IMM c = 0x01
+
+IMM a = 0x82
+STM *b = a
+ADD b c
+
+IMM a = 0x80
+STM *b = a
+ADD b c
+
+IMM a = 0x1a
+STM *b = a
+ADD b c
+
+IMM a = 0x24
+STM *b = a
+ADD b c

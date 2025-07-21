@@ -1,0 +1,20 @@
+IMM b = 0x71   # b = 0x71 = 'q'
+IMM c = 0x1    # c = 0x01 = 1
+IMM a = 0xbd   # 
+STM *b = a     # [0x71] = 189
+ADD b c        # b++ (b = 0x72)
+IMM a = 0xb5   # 
+STM *b = a     # [0x72] = 181
+ADD b c        # b++ (b = 0x73)
+IMM a = 0xd8   # 
+STM *b = a     # [0x73] = 216
+ADD b c        # b++ (b = 0x74)
+IMM a = 0xdc   # 
+STM *b = a     # [0x74] = 220
+ADD b c        # b++ (b = 0x75)
+IMM a = 0xbd   # 
+STM *b = a     # [0x75] = 189
+ADD b c        # b++ (b = 0x76)
+IMM a = 0x98   # 
+STM *b = a     # [0x76] = 152
+ADD b c        # 

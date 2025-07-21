@@ -1,0 +1,22 @@
+IMM b = 0x54
+IMM c = 0x04 # max bytes to read
+IMM a = 0x00 
+SYS 0x01 a   # syscall 1, num bytes read to a
+
+IMM b = 0x74
+IMM c = 0x01
+IMM a = 0x34
+STM *b = a
+ADD b c
+
+IMM a = 0x37
+STM *b = a
+ADD b c
+
+IMM a = 0xa3
+STM *b = A
+ADD b c
+
+IMM a = 0x93
+STM *b = A
+ADD b c

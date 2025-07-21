@@ -1,0 +1,129 @@
+im trying to build a yan85 emulator
+that emulator accepts yan85 commands which allow simple operations
+such as:
+sys - system calls
+stm - set to memory
+imm - immediate value
+stk - stack operations
+ldm - load from memory
+cmp - compare values
+jmp - jump to address
+add - addition
+
+explanation of the commands:
+* sys arg1 arg2
+arg1 - syscall number - integer
+arg2 - register to keep return value - register
+
+* stm arg1 arg2
+arg1 - destination address - register
+arg2 - value to store - register
+
+* imm arg1 arg2
+arg1 - destination register - register
+arg2 - immediate value - integer
+
+* stk arg1 arg2
+if push: arg1 = 0 and arg2 = register to push
+if pop: arg1 = register to pop into and arg2 = 0
+if move: arg1 = register to move to and arg2 = register to move from
+
+* ldm arg1 arg2
+arg1 - destination register - register
+arg2 - source address - register
+
+* cmp arg1 arg2
+arg1 - register to compare - register
+arg2 - register to compare - register
+
+* jmp arg1 arg2
+arg1 - integer mask for jump condition
+arg2 - address to jump to - register
+
+* add arg1 arg2
+arg1 - destination register - register
+arg2 - register to add - register
+
+
+registers id:
+a 0x08
+b 0x04
+c 0x01
+d 0x02
+s 0x20
+i 0x40
+f 0x10
+
+Opcodes:
+sys      0x20
+stm      0x00
+imm      0x02
+stk      0x01
+ldm      0x08
+cmp      0x10
+jmp      0x04
+add      0x40
+
+SYSCALLS:
+0x08 - sys_open
+0x02 - sys_read_code
+0x01 - sys_read_mem
+0x04 - sys_write
+0x20 - sys_sleep
+0x10 - sys_exit
+
+JMP_mask:
+0x01 - je
+0x02 jne
+0x04
+0x08
+
+cmp 0x41 0x7e -> f = 1010
+cmp 0x9 0x0   -> f = 0110
+
+f: 0 | 0 | 0 | 0 | l | g | ne | e
+
+input: 0x30
+string: 0x62
+
+[0x38] == [0x6c] c = 9
+[0x37] == [0x6b] c = 8
+[0x36] == [0x6a] c = 7
+[0x35] == [0x69] c = 6
+[0x34] == [0x68] c = 5
+[0x33] == [0x67] c = 4
+[0x32] == [0x66] c = 3
+[0x31] == [0x65] c = 2
+[0x30] == [0x64] c = 1
+
+notes:
+- passphrase is kept in 0x62 - 0x6c = 11 bytes
+
+
+syscalls:
+sys_exit:  exit
+sys_read:  read from fd(A) (C) Bytes [into (B)] - A holds num of bytes read
+sys_write: write to fd(A) byte(D) ??????
+
+0x        exec
+0x        crash
+0x        read_memory
+0x        write_memory
+0x        read_register
+0x        write_register
+0x        int_sys
+0x        int_stm
+0x        int_imm
+0x        int_stk
+0x        int_ldm
+0x        int_cmp
+0x        int_jmp
+0x        int_add
+0x        sys_sleep
+0x        sys_open
+0x        sys_write
+0x        sys_read
+0x        sys_exit
+
+afn int_stk   0x
+afn int_jmp   0x
