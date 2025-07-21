@@ -1,0 +1,3 @@
+[submodule "yan85emu"]
+	path = babyrev/yan85emu
+	url = git@github.com:thm4n/yan85emu.git
