@@ -1,0 +1,1 @@
+curl "http://challenge.localhost:80/fulfill?pin=wrdtzmkb&key=fwjbelaw&solution=cbftskdz" -H "Host: challenge.localhost:80"

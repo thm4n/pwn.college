@@ -1,0 +1,1 @@
+curl http://challenge.localhost:80/task?access_code=npaofcsc -H "Host: challenge.localhost:80"

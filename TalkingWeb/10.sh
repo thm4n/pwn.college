@@ -1,0 +1,1 @@
+curl http://challenge.localhost:80/validate -H "Host: pwnable.tw:80"
