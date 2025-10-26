@@ -66,8 +66,7 @@ add      0x40
 
 SYSCALLS:
 0x08 - sys_open
-0x02 - sys_read_code
-0x01 - sys_read_mem
+0x01 - sys_read
 0x04 - sys_write
 0x20 - sys_sleep
 0x10 - sys_exit

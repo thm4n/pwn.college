@@ -1,0 +1,54 @@
+registers id:
+a 0x
+b 0x
+c 0x
+d 0x
+s 0x
+i 0x
+f 0x
+
+cmp_flags:
+0x - not jae - less than
+0x - not jbe - greater than
+0x - not jne - equal
+0x - not je - not equal
+0x - not (arg1 != 0 or arg2 != 0) - both zero
+
+SYSCALLS:
+0x - sys_open
+0x - sys_read
+0x - sys_write
+0x - sys_sleep
+0x - sys_exit
+
+syscalls:
+sys_exit:  exit
+sys_read:  read from fd(A) (C) Bytes [into (B)] - A holds num of bytes read
+sys_write: write to fd(A) byte(D) ??????
+
+0x227b  main
+0x2204  interpreter_loop
+0x205e  interpret_instruction
+
+0x15b8  read_register
+0x166a  write_register
+0x173b  read_memory
+0x1760  write_memory
+
+0x1cda  interpret_sys
+0x19cc  interpret_stm
+0x1790  interpret_imm
+0x188d  interpret_stk
+0x1a5f  interpret_ldm
+0x1af0  interpret_cmp
+0x1c30  interpret_jmp
+0x17f4  interpret_add
+
+0x135c  sys_sleep
+0x12a9  sys_open
+0x130d  sys_write
+0x12db  sys_read
+0x133f  sys_exit
+
+code starts at 0x5020 with size: 0x2a3
+memory starts at 0x52e0 with size 0x100
